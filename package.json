@@ -1,0 +1,18 @@
+{
+  "name": "appt",
+  "version": "0.0.1",
+  "description": "",
+  "author": "brab0 <brabo.rodrigo@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.13.1",
+    "cachegoose": "^4.0.1",
+    "config": "^1.27.0",
+    "express": "^4.16.2",
+    "express-jwt": "^5.1.0",
+    "mongoose": "^4.12.3",
+    "neo4j": "^2.0.0-RC2",
+    "require-files": "^0.0.7"
+  }
+}
