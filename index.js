@@ -10,30 +10,28 @@ function runApi(customConfig){
     
     app.setConfig(customConfig);
 
-    return new Promise((resolve, reject) => {
-        app.loadBodyParser();
-        app.loadCORS();
-        app.loadAccess();
-        app.loadStatics();
-        app.loadCore();
-        resolve();
-    })
-    .then(() => app.loadDatabase())
-    .then(() => app.loadRedis())
-    .then(() => app.loadServer());
+    return app.loadDatabase()
+        .then(() => app.loadRedis())        
+        .then(() => {         
+            app.loadBodyParser();
+            app.loadCORS();
+            app.loadAccess();
+            app.loadStatics();
+            app.loadCore();
+            
+            return;
+        })
+        .then(() => app.loadServer());
 }
 
 function runApp(customConfig){
     customConfig = customConfig ? Object.assign(config, customConfig) : config;
     
     app.setConfig(customConfig);
-
-    return new Promise((resolve, reject) => {
-        app.loadCore();
-        resolve();
-    })
-    .then(() => app.loadDatabase())
-    .then(() => app.loadRedis());
+    
+    return app.loadDatabase()
+        .then(() => app.loadRedis())
+        .then(() => app.loadCore());
 }
 
 function registerScheme(name, scheme){            
