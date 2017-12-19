@@ -1,41 +1,33 @@
-Appt
-==========
-A bunch of wraps, middlewares, utils and configurations for `ready-to-go` APIs building based on MongoDB + Express + NodeJs stack.
+# Appt
+Not a framework! 
 
 
 ## Install
     $ npm install appt --save
 
 
-## Stack
-You know we're using here a MongoDB, Express and NodeJs stack. But also, we supply a `Redis` connection to allow your API work with cached data. Further that, we provide: 
-- a `body-parser` middleware to handle your request parameters: https://www.npmjs.com/package/body-parser 
-- a simple configuration for `static routes` using express.static function;
+## What is this for?
+Appt was built to overcome some recurrency steps on NodeJs projects. For example, if you're building an ExpressJs(`we love it, right?`) API, you probably will define a class(or whatever) to make a database connection, get a server instance to assemble(`use`) your routes, use a `body-parser` to handle your requests, will configure some `CORS`, JWT access and so on...EVERY TIME! 
+Or maybe you're building just a regular node program. You're gonna build a glob requirer to your mongoose schemes and models and...hey, you also gonna have to require them(even they're already loaded). Further, good look when you change something on you project's paths structure.
+ 
+If some of these scenarios looks familiar to you, well, Appt is totally for you! Otherwise, get out!!!
+
+
+## Resources
+To allow you to build `ready-to-go` applications, we gather and build some resources as listed below:
+- a `body-parser`: middleware to handle your request parameters: https://www.npmjs.com/package/body-parser 
+- a `static routes`: configuration using an express.static wrapper;
 - a `JWT Middleware` to handle access controll: https://www.npmjs.com/package/express-jwt
-- a `Database Connection and Schema Driven` got from Mongoose: https://www.npmjs.com/package/mongoose  
+- a MongoDB and Neo4j `Database Connection`
+- a `ODM` got from Mongoose: https://www.npmjs.com/package/mongoose
+- a `Cypher's Query Helper` wrapping neo4j package: https://www.npmjs.com/package/neo4j
 - a `Redis Connection` provided by cachegoose in case you want to work with cached data: https://www.npmjs.com/package/cachegoose
 - an express `Server`: https://www.npmjs.com/package/express
-- an ordinary express `cross-domain` configuration;
-- and a `glob requirer` which boots your api core(routes, controllers, models and schemas): https://www.npmjs.com/package/require-files
+- an ordinary express `cross-domain(CORS)` configuration;
+- and a `glob requirer` which boots and assembles your core(routes, controllers, models and schemas) and some helpers according with your configurations: https://www.npmjs.com/package/require-files
 
 
-## Usage
-```javascript
-const api = require('appt');
-
-api.run()
-    .then(res => {
-        console.log(`HTTP server-${res.enviroment} rodando em ${res.host} na porta ${res.port}.`));
-    })
-    .catch(err => {
-        throw new Error(err);
-    })
-```
-That's it! Write your `express routes`, `controllers` and `mongoose models` as usual and don't bother anymore with those ordinary configurations you have to deal with every time you start a new API project.
-
-
-### Configurations
-To make possible building `ready-to-go` APIs, we define following the default settings:
+### Default Configurations
 
 ```javascript
 module.exports = {
@@ -96,11 +88,30 @@ module.exports = {
         host: 'localhost'
     },
     database : {
-        uri: "mongodb://localhost:27017/simple_men",
+        type: "mongodb",
+        uri: "mongodb://localhost:27017/simple_men",
         debug: false
     }
 }
 ```
+
+
+## Usage
+If you still here(high five!), lets do someting!
+```javascript
+import { api } from 'appt';
+
+console.log(config);
+
+api.run()
+    .then(res => console.log(`HTTP server-${res.enviroment} rodando em ${res.host} na porta ${res.port}.`))
+    .catch(err => {
+        throw new Error(err);
+    });
+```
+That's it! Write your `express routes`, `controllers` and `mongoose models` as usual and don't bother anymore with those ordinary configurations you have to deal with every time you start a new API project.
+
+
 
 ### Libs
 Further than configs, Simple MEN provides wrappers to abstract some ExpressJs functions and helps to the Routes->Controller->Model->Scheme pattern flow. You're not obligated to use it, though we strongly recommend you do it.
