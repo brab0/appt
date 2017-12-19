@@ -7,27 +7,29 @@ Not a framework...ooor is it?
 
 
 ## What is this for?
-Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of wraps, middlewares and default configuration. For example, if you're building an ExpressJs(*we love it, right?*) API, you probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
-Or maybe you're building just a regular node program. You're gonna build a **glob** requirer to your **mongoose schemes and models** and...*hey, you also gonna have to require them, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
+Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares and default configuration*). 
+Lets say you're building an ExpressJs(*we love it, right?*) API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
+Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares and default configuration*). Lets say you're building an ExpressJs(*we love it, right?*) API, you probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
+Could happen on a regular node's program building as well. You might write a **glob requirer** to your **mongoose schemes and models** and...*hey, you also gonna have to require them all, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
  
-If some of these scenarios looks familiar to you, well, **Appt is totally for you**! Otherwise, get out!!!
+If some of these scenarios looks familiar to you, well, **Appt is totally for you!!!**
 
 
 ## Resources
-To allow you to build **ready-to-go applications**, we gather and build some resources as listed below:
-- a `body-parser`: middleware to handle your request parameters: https://www.npmjs.com/package/body-parser 
-- a `static routes`: configuration using an express.static wrapper;
-- a `JWT Middleware` to handle access controll: https://www.npmjs.com/package/express-jwt
-- a MongoDB and Neo4j `Database Connection`
-- a `ODM` got from Mongoose: https://www.npmjs.com/package/mongoose
-- a `Cypher's Query Helper` wrapping neo4j package: https://www.npmjs.com/package/neo4j
-- a `Redis Connection` provided by cachegoose in case you want to work with cached data: https://www.npmjs.com/package/cachegoose
-- an express `Server`: https://www.npmjs.com/package/express
-- an ordinary express `cross-domain(CORS)` configuration;
-- and a `glob requirer` which boots and assembles your core(routes, controllers, models and schemas) and some helpers according with your configurations: https://www.npmjs.com/package/require-files
+To allow you building **ready-to-go applications**, we have gather and built:
+- a middleware using [`body-parser`](https://www.npmjs.com/package/body-parser) to handle your request parameters; 
+- a configurable `static routes` helper using an `express.static`;
+- a `JWT Middleware` middleware to handle access controll using [express-jwt](https://www.npmjs.com/package/express-jwt) package;
+- a MongoDB and Neo4j `Database Connection` helper;
+- an instantiation wrapper for [mongoose](https://www.npmjs.com/package/mongoose) models and schemes;
+- a `Cypher's Query Class` wrapping [neo4j](https://www.npmjs.com/package/neo4j) package;
+- a `Redis Connection` helper using [cachegoose](https://www.npmjs.com/package/cachegoose) cached data;
+- an [express](https://www.npmjs.com/package/express) `Server` wrapper;
+- a `cross-domain(CORS)` helper;
+- a [`glob requirer`](https://www.npmjs.com/package/require-files) with a `register` to label, boot and assemble your core application(routes, controllers, models and schemas) and expose some utils according with your configurations;
+- a `Router Class` to wrap express routes and make the chaining of them easier;
 
-
-### Default Configurations
+## Default Configurations
 
 ```javascript
 module.exports = {
