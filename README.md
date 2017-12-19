@@ -1,5 +1,5 @@
 # Appt
-Not a framework! 
+Not a framework...ooor is it? 
 
 
 ## Install
@@ -7,14 +7,14 @@ Not a framework!
 
 
 ## What is this for?
-Appt was built to overcome some recurrency steps on NodeJs projects. For example, if you're building an ExpressJs(`we love it, right?`) API, you probably will define a class(or whatever) to make a database connection, get a server instance to assemble(`use`) your routes, use a `body-parser` to handle your requests, will configure some `CORS`, JWT access and so on...EVERY TIME! 
-Or maybe you're building just a regular node program. You're gonna build a glob requirer to your mongoose schemes and models and...hey, you also gonna have to require them(even they're already loaded). Further, good look when you change something on you project's paths structure.
+**Appt was made to overcome some recurrency steps on NodeJs projects building**. For example, if you're building an ExpressJs(*we love it, right?*) API, you probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
+Or maybe you're building just a regular node program. You're gonna build a **glob** requirer to your **mongoose schemes and models** and...*hey, you also gonna have to require them, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
  
-If some of these scenarios looks familiar to you, well, Appt is totally for you! Otherwise, get out!!!
+If some of these scenarios looks familiar to you, well, **Appt is totally for you**! Otherwise, get out!!!
 
 
 ## Resources
-To allow you to build `ready-to-go` applications, we gather and build some resources as listed below:
+To allow you to build **ready-to-go applications**, we gather and build some resources as listed below:
 - a `body-parser`: middleware to handle your request parameters: https://www.npmjs.com/package/body-parser 
 - a `static routes`: configuration using an express.static wrapper;
 - a `JWT Middleware` to handle access controll: https://www.npmjs.com/package/express-jwt
