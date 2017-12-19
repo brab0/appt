@@ -18,7 +18,7 @@ If some of these scenarios looks familiar to you, well, **Appt is totally for yo
 ## Resources
 To allow you building **ready-to-go applications**, we have gather and built:
 - a middleware using [`body-parser`](https://www.npmjs.com/package/body-parser) to handle your request parameters; 
-- a configurable `static routes` helper using an `express.static`;
+- a configurable `static routes` helper using `express.static`;
 - a `JWT Middleware` middleware to handle access controll using [express-jwt](https://www.npmjs.com/package/express-jwt) package;
 - a MongoDB and Neo4j `Database Connection` helper;
 - an instantiation wrapper for [mongoose](https://www.npmjs.com/package/mongoose) models and schemes;
@@ -28,11 +28,9 @@ To allow you building **ready-to-go applications**, we have gather and built:
 - a `cross-domain(CORS)` helper;
 - a [`glob requirer`](https://www.npmjs.com/package/require-files) with a `register` to label, boot and assemble your core application(routes, controllers, models and schemas) and expose some utils according with your configurations;
 - a `Router Class` to wrap express routes and make the chaining of them easier;
-
-## Default Configurations
-
+- a bunch of predefined configurations, as seen below:
 ```javascript
-module.exports = {
+{
     enviroment : "dev",
     bodyParser: {
         json: {
@@ -58,19 +56,21 @@ module.exports = {
         controllers : [`**/controller.js`],
         routes : [`**/route.js`]
     },
-    statics : [],
-    access: {}, 
     server:{
         host : "http://localhost",
         port : 3001
-    }
+    },
+    database : {},
+    statics : [],
+    access: {},
+    redis: {}
 }
 ```
 Of course you may want override some of them. Do it, but don't forget to pass your configuration as parameter to the run function such as `api.run(myConfigs).then...`. Also, such as every setting above, `database`, `statics`, `access` and `redis` has specific properties and by default, they will not be loaded. In case of you want define them to be used at your API project, follow the next config example using your own settings:
 ```javascript
 module.exports = {
     statics : [{
-        route: '/prictures',
+        route: '/pictures',
         path: '/public/assets/pictures'
     }],
     access: {
