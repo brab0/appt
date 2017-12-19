@@ -7,7 +7,7 @@ Not a framework...ooor is it?
 
 
 ## What is this for?
-**Appt was made to overcome some recurrency steps on NodeJs projects building**. For example, if you're building an ExpressJs(*we love it, right?*) API, you probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
+Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of wraps, middlewares and default configuration. For example, if you're building an ExpressJs(*we love it, right?*) API, you probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
 Or maybe you're building just a regular node program. You're gonna build a **glob** requirer to your **mongoose schemes and models** and...*hey, you also gonna have to require them, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
  
 If some of these scenarios looks familiar to you, well, **Appt is totally for you**! Otherwise, get out!!!
