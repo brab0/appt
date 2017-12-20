@@ -84,7 +84,7 @@ module.exports = {
     controllers: app.controllers,
     models: app.models,
     schemes: app.schemes,
-    instance: app.server,
+    server: app.server,
     express: express,
     config: config,
     register: {
