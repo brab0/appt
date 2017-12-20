@@ -1,5 +1,5 @@
 # Appt
-overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares, classes and default configuration*). 
+Overcome recurrency steps on NodeJs projects building. 
 
 
 ## Install
@@ -15,7 +15,7 @@ If some of these scenarios looks familiar to you, well, **Appt is totally for yo
 
 
 ## Resources
-To allow you building **ready-to-go NodeJs applications**, we have gather and built:
+To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch of resources(*wraps, middlewares, classes and default configuration*) as seen below:
 - a middleware using [`body-parser`](https://www.npmjs.com/package/body-parser) to handle your request parameters; 
 - a configurable `static routes` helper using `express.static`;
 - a `JWT Middleware` middleware to handle access controll using [express-jwt](https://www.npmjs.com/package/express-jwt) package;
