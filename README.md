@@ -72,11 +72,16 @@ Of course you may want override some of these settings. Take a look to the next 
 **OBS:** All the non explicit overriden settings will be kept just as seen above.
 
 ## Usage
-Although we can find similarity on some api/app building steps, some configurations makes sense only for us. Said that, lets override some default configs assuming our API's custom `config.js` file:
+The nexts session will guide you through an API example built with Appt. You can clone the whole example [right here](https://github.com/brab0/simple-men-template) 
+
+
+### Custom Configs
+Although we can find similarity on some api/app building steps, some configurations makes sense only for us. Said that, lets customize our API configurations as follows:
 
 ```javascript
-// customs
-{
+// config.js
+
+module.exports = {
     paths : {
         schemes : [`**/schemes/*.js`],
         models : [`**/models/*.js`],
@@ -121,19 +126,20 @@ Explaing a bit what is happening here:
 - `redis` and `database` set the connections of both. If you're using Neo4j you must to change the `type` to "neo4j"(such as you `uri`, of course).
 - to finish it, the `server` setting overrides `port`, which is now :3000;
 
+### Entry Point
+Once our API has all the configurations done, we should create our starter point(set it to be at your package.json). There, we'll call an API's Appt instance, which will boot the resources and return the result of an express server instance:
+
 ```javascript
+// main.js
+import { config } from './config';
 import { api } from 'appt';
 
-console.log(config);
-
-api.run()
-    .then(res => console.log(`HTTP server-${res.enviroment} rodando em ${res.host} na porta ${res.port}.`))
+api.run(config)
+    .then(res => console.log(`HTTP server-${res.enviroment} running at ${res.host}:${res.port}.`))
     .catch(err => {
         throw new Error(err);
     });
 ```
-That's it! Write your `express routes`, `controllers` and `mongoose models` as usual and don't bother anymore with those ordinary configurations you have to deal with every time you start a new API project.
-
 
 
 ### Libs
