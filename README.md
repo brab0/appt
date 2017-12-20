@@ -67,7 +67,12 @@ To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch
 }
 ```
 
-Of course you may want override some of these settings. See the next example of an API config:
+Of course you may want override some of these settings. Take a look to the next session.
+**OBS:** All the non explicit overriden settings will be kept just as seen above.
+
+## Usage
+Although we can find similarity on some api/app building steps, some configurations makes sense only for us. Said that, lets override some default configs assuming our API's custom `config.js` file:
+
 ```javascript
 // customs
 {
@@ -108,16 +113,13 @@ Of course you may want override some of these settings. See the next example of 
     }
 }
 ```
-Explaing a bit what is happening above:
+Explaing a bit what is happening here:
 - the `paths` setting is where Appt will find and what it will assembled;
 - the `statics` will define where the api statics are;
 - the `access` will tell to Appt what routes JWT must cover and what secrets it should use to verify a header's request token;
 - `redis` and `database` set the connections of both. If you're using Neo4j you must to change the `type` to "neo4j"(such as you `uri`, of course).
 - to finish it, the `server` setting overrides `port`, which is now :3000;
 
-**OBS:** All the non explicit overriden settings will be kept just as seen at the `default configurations`.
-
-## Usage
 ```javascript
 import { api } from 'appt';
 
