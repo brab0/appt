@@ -7,16 +7,17 @@ Not a framework...ooor is it?
 
 
 ## What is this for?
-Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares and default configuration*). 
+Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares, classes and default configuration*). 
+
 Lets say you're building an ExpressJs(*we love it, right?*) API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
-Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares and default configuration*). Lets say you're building an ExpressJs(*we love it, right?*) API, you probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
+
 Could happen on a regular node's program building as well. You might write a **glob requirer** to your **mongoose schemes and models** and...*hey, you also gonna have to require them all, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
  
 If some of these scenarios looks familiar to you, well, **Appt is totally for you!!!**
 
 
 ## Resources
-To allow you building **ready-to-go applications**, we have gather and built:
+To allow you building **ready-to-go NodeJs applications**, we have gather and built:
 - a middleware using [`body-parser`](https://www.npmjs.com/package/body-parser) to handle your request parameters; 
 - a configurable `static routes` helper using `express.static`;
 - a `JWT Middleware` middleware to handle access controll using [express-jwt](https://www.npmjs.com/package/express-jwt) package;
@@ -28,7 +29,7 @@ To allow you building **ready-to-go applications**, we have gather and built:
 - a `cross-domain(CORS)` helper;
 - a [`glob requirer`](https://www.npmjs.com/package/require-files) with a `register` to label, boot and assemble your core application(routes, controllers, models and schemas) and expose some utils according with your configurations;
 - a `Router Class` to wrap express routes and make the chaining of them easier;
-- a bunch of predefined configurations, as seen below:
+- and finnally, a bunch of predefined configurations, as seen below:
 ```javascript
 {
     enviroment : "dev",
@@ -66,9 +67,16 @@ To allow you building **ready-to-go applications**, we have gather and built:
     redis: {}
 }
 ```
-Of course you may want override some of them. Do it, but don't forget to pass your configuration as parameter to the run function such as `api.run(myConfigs).then...`. Also, such as every setting above, `database`, `statics`, `access` and `redis` has specific properties and by default, they will not be loaded. In case of you want define them to be used at your API project, follow the next config example using your own settings:
+
+Of course you may want override some of them. See the next example:
 ```javascript
 module.exports = {
+    paths : {
+        schemes : [`**/schemes/*.js`],
+        models : [`**/models/*.js`],
+        controllers : [`**/controllers/*.js`],
+        routes : [`**/routes/*.js`]
+    },
     statics : [{
         route: '/pictures',
         path: '/public/assets/pictures'
@@ -99,7 +107,6 @@ module.exports = {
 
 
 ## Usage
-If you still here(high five!), lets do someting!
 ```javascript
 import { api } from 'appt';
 
