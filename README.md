@@ -1,5 +1,5 @@
 # Appt
-Not a framework...ooor is it? 
+overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares, classes and default configuration*). 
 
 
 ## Install
@@ -7,8 +7,6 @@ Not a framework...ooor is it?
 
 
 ## What is this for?
-Appt was made to overcome some recurrency steps on NodeJs projects building by providing a bunch of resources(*wraps, middlewares, classes and default configuration*). 
-
 Lets say you're building an ExpressJs(*we love it, right?*) API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
 
 Could happen on a regular node's program building as well. You might write a **glob requirer** to your **mongoose schemes and models** and...*hey, you also gonna have to require them all, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
