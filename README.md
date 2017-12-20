@@ -217,7 +217,8 @@ UserScheme.statics.signIn = user => {
 register.model('User', UserScheme);
 ```
 
-#### ./schemes/user.js```javascript
+#### ./schemes/user.js
+```javascript
 import { register } from 'appt';
 
 const User = {
@@ -248,6 +249,7 @@ const User = {
 
 register.scheme('User', User);
 ```
+
 
 ## That's all folks!
 If you have any suggestion or want to contribute somehow, let me know!
