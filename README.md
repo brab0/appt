@@ -117,7 +117,7 @@ module.exports = {
     }
 }
 ```
-Explaing a bit what is happening here:
+**Whats going on:**
 - the `paths` setting is where Appt will find and what it will assembled;
 - the `statics` will define where the api statics are;
 - the `access` will tell to Appt what routes JWT must cover and what secrets it should use to verify a header's request token;
@@ -126,7 +126,7 @@ Explaing a bit what is happening here:
 
 
 #### ./main.js
-Once our API has all the configurations done, we should create our starter point(set it to be at your package.json). There, we'll call an API's Appt instance, which will boot the resources and return the result of an express server instance:
+Once our API has all the configurations done, we should create our starter point(set it to be at your package.json):
 ```javascript
 import { config } from './config';
 import { api } from 'appt';
@@ -137,12 +137,16 @@ api.run(config)
         throw new Error(err);
     });
 ```
+**Whats going on:**
+- we called our config.js file;
+- import an `api` instance of appt and ran it passing our config;
+- with the config passed, internally, api Appt instance boots the modules needed to attend our custom configs and, finnaly, returns a server instance;
 
 
 ### Core
 Working with a MongoDB(mongoose) + ExpressJs stack, I like to divide my API's structure between `routes`, `controllers`, `models` and `schemes`. Feel free to try something else, but remember to configure the `paths` as you designed and don't forget to `register` everything.
 
-**Spoiler Alert**: You will notice it ahead, but `register` method is the way(pattern) to make, such developer and Appt,  clear about what is what. Dizzy? No problem. Let move on! 
+**Spoiler Alert**: You will notice it ahead, but `register` method is the way(pattern) to make, both developer and Appt,  clear about what is what. Dizzy? No problem. Let move on! 
 
 
 #### ./routes/auth.js
@@ -153,6 +157,10 @@ route("/auth")
   .get('/login/:user', req => controllers.auth.login(req.body))
   .post('/signin', req => controllers.auth.signIn(req.body));
 ```
+**Whats going on:**
+- `route` is a instance of a classe which wraps express routes and make it easier. So, breaking the lines, we first define a baseUrl with `route("/auth")`, then chains all the subsequents methods. This means that every http *get* requested to `/auth/login/90fn023` and posted to `/auth/signin`, will be handled by these two routes;
+- `controllers` is an object containing the reference of all our core's controllers assembled. Which means we no longer need to require them by their paths;
+**OBS:** Though we strongly recommed you to use Appt `route` class, you can opt working with traditional express router. If you do so, import it from Appt such as the instance of your server/app as well(import {express, server} from 'appt').
 
 #### ./controllers/auth.js
 ```javascript
