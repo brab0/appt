@@ -78,9 +78,8 @@ The nexts session will guide you through an API example built with Appt. You can
 ### Custom Configs
 Although we can find similarity on some api/app building steps, some configurations makes sense only for us. Said that, lets customize our API configurations as follows:
 
+#### ./config.js
 ```javascript
-// config.js
-
 module.exports = {
     paths : {
         schemes : [`**/schemes/*.js`],
@@ -129,8 +128,8 @@ Explaing a bit what is happening here:
 ### Entry Point
 Once our API has all the configurations done, we should create our starter point(set it to be at your package.json). There, we'll call an API's Appt instance, which will boot the resources and return the result of an express server instance:
 
+#### ./main.js
 ```javascript
-// main.js
 import { config } from './config';
 import { api } from 'appt';
 
