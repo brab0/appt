@@ -142,15 +142,19 @@ api.run(config)
 ```
 
 
-### Libs
-Further than configs, Simple MEN provides wrappers to abstract some ExpressJs functions and helps to the Routes->Controller->Model->Scheme pattern flow. You're not obligated to use it, though we strongly recommend you do it.
+### Core
+Working with a MongoDB(mongoose) + ExpressJs stack, I like to divide my API's structure between `routes`, `controllers`, `models` and `schemes`. Feel free to try something else, but remember to configure the `paths` as you designed and don't forget to `register` everything.
 
-This is how our `route.js` looks like:
+**Spoiler Alert**: You will notice it ahead, but `register` method is the way(pattern) to make clear, such developer and Appt, of what is what. Dizzy? No problem. Let move on! 
+
+
+#### Route
 ```javascript
-const { router, controllers } = require('appt');
+// ./routes/auth.js
 
-router
-  .base("/auth")
+const { route, controllers } = require('appt');
+
+route("/auth")
   .post('/login', req => controllers.auth.login(req.body))
   .post('/signin', req => controllers.auth.signIn(req.body));
 ```
