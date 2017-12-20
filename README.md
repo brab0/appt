@@ -72,13 +72,12 @@ Of course you may want override some of these settings. Take a look to the next 
 **OBS:** All the non explicit overriden settings will be kept just as seen above.
 
 ## Usage
-The nexts session will guide you through an API example built with Appt. You can clone the whole example [right here](https://github.com/brab0/simple-men-template) 
+This session will guide you through an API example built with **Appt**. You can clone the whole example [right here](https://github.com/brab0/simple-men-template). 
 
-
-### Custom Configs
-Although we can find similarity on some api/app building steps, some configurations makes sense only for us. Said that, lets customize our API configurations as follows:
+For this example we're gonna use: `statics paths`, `JWT` access controll, a custom folder structure(`paths`), `redis` to cache some queries and mongoDB. As told before, everything is built-in. The only external package we're using here is `jsonwebtoken` to encrypt our JWT token. 
 
 #### ./config.js
+Although we can find similarity on some api/app building steps, some configurations makes sense only for us. Said that, lets customize our API configurations as follows:
 ```javascript
 module.exports = {
     paths : {
@@ -125,10 +124,9 @@ Explaing a bit what is happening here:
 - `redis` and `database` set the connections of both. If you're using Neo4j you must to change the `type` to "neo4j"(such as you `uri`, of course).
 - to finish it, the `server` setting overrides `port`, which is now :3000;
 
-### Entry Point
-Once our API has all the configurations done, we should create our starter point(set it to be at your package.json). There, we'll call an API's Appt instance, which will boot the resources and return the result of an express server instance:
 
 #### ./main.js
+Once our API has all the configurations done, we should create our starter point(set it to be at your package.json). There, we'll call an API's Appt instance, which will boot the resources and return the result of an express server instance:
 ```javascript
 import { config } from './config';
 import { api } from 'appt';
