@@ -7,7 +7,7 @@ Overcome recurrency steps at the start of NodeJs projects building.
 
 
 ## What is this for?
-Lets say you're building an ExpressJs(*we love it, right?*) API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
+Lets say you're building an **ExpressJs**(*we love it, right?*) API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
 
 Or you're may building regular node's program. You will write a **glob requirer** to your **mongoose schemes and models** and...*hey, you also gonna have to require them all, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
  
