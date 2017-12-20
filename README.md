@@ -1,5 +1,5 @@
 # Appt
-Overcome recurrency steps at the start of NodeJs projects building. 
+Overcome recurrency steps at the start of a NodeJs project building. 
 
 
 ## Install
@@ -29,6 +29,7 @@ To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch
 - a `Router Class` to wrap express routes and make the chaining of them easier;
 - and finnally, a bunch of predefined configurations, as seen below:
 ```javascript
+// defaults
 {
     enviroment : "dev",
     bodyParser: {
@@ -66,9 +67,10 @@ To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch
 }
 ```
 
-Of course you may want override some of them. See the next example:
+Of course you may want override some of these settings. See the next example of an API config:
 ```javascript
-module.exports = {
+// customs
+{
     paths : {
         schemes : [`**/schemes/*.js`],
         models : [`**/models/*.js`],
@@ -99,10 +101,21 @@ module.exports = {
         type: "mongodb",
         uri: "mongodb://localhost:27017/simple_men",
         debug: false
+    },
+    server:{
+        host : "http://localhost",
+        port : 3000
     }
 }
 ```
+Explaing a bit what is happening above:
+- the `paths` setting is where Appt will find and what it will assembled;
+- the `statics` will define where the api statics are;
+- the `access` will tell to Appt what routes JWT must cover and what secrets it should use to verify a header's request token;
+- `redis` and `database` set the connections of both. If you're using Neo4j you must to change the `type` to "neo4j"(such as you `uri`, of course).
+- to finish it, the `server` setting overrides `port`, which is now :3000;
 
+**OBS:** All the non explicit overriden settings will be kept just as seen at the `default configurations`.
 
 ## Usage
 ```javascript
