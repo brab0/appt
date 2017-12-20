@@ -1,5 +1,5 @@
 # Appt
-Overcome recurrency steps on NodeJs projects building. 
+Overcome recurrency steps on NodeJs projects start building. 
 
 
 ## Install
