@@ -145,52 +145,82 @@ api.run(config)
 ### Core
 Working with a MongoDB(mongoose) + ExpressJs stack, I like to divide my API's structure between `routes`, `controllers`, `models` and `schemes`. Feel free to try something else, but remember to configure the `paths` as you designed and don't forget to `register` everything.
 
-**Spoiler Alert**: You will notice it ahead, but `register` method is the way(pattern) to make clear, such developer and Appt, of what is what. Dizzy? No problem. Let move on! 
+**Spoiler Alert**: You will notice it ahead, but `register` method is the way(pattern) to make, such developer and Appt,  clear about what is what. Dizzy? No problem. Let move on! 
 
 
 #### ./routes/auth.js
 ```javascript
-const { route, controllers } = require('appt');
+import { route, controllers } from 'appt';
 
 route("/auth")
-  .post('/login', req => controllers.auth.login(req.body))
+  .get('/login/:user', req => controllers.auth.login(req.body))
   .post('/signin', req => controllers.auth.signIn(req.body));
 ```
 
 #### ./controllers/auth.js
 ```javascript
-const { register, models, respond } = require('appt');
+import { models, respond, config, register } from 'appt';
+import jwt from 'jsonwebtoken';
 
-function signIn(data){
-  const user = new models.User(data);
-  
-  return user.signIn()
+const signIn = (user) => {
+  return models.User.signIn(user)
     .then(res => respond(200).send(res))
     .catch(err => err);
 }
 
+const login = (user) => {
+  return models.User.login(user)
+    .then(res => {
+
+      if(!res) throw 'Usuário ou senha errados.';        
+
+      const token = jwt.sign({
+        nome: res.name
+      }, config.access.admin.secret, {
+        expiresIn: "5 days"
+      });
+      
+      return respond(200).send(token)       
+    })
+    .catch(err => respond(401).send(err));
+};
+
 register.controller('auth', {
-  signIn: signIn
+  signIn,
+  login
 })
 ```
 
 #### ./models/user.js
 ```javascript
-const { register, schemes } = require('appt');
+import { schemes, models, register } from 'appt'
 
-schemes.User.methods.signIn = () => {
-  return this.save()
-    .then(res => res)
-    .catch(res => res);
+const UserScheme = schemes.User;
+
+UserScheme.statics.login = user => {
+  return models.User.findOne({
+    email: user.email,
+    password: user.password
+  })
+  .then(res => res)
+  .catch(res => res);
 };
 
-register.model('User', schemes.User);
+UserScheme.statics.signIn = user => {
+  const newUser = new models.User(user);
+  
+  return newUser.save()
+  .then(res => res)
+  .catch(res => res);
+};
+
+register.model('User', UserScheme);
 ```
 
 #### ./schemes/user.js```javascript
-const { register } = require('appt');
+import { register } from 'appt';
 
-register.scheme('User', {
+const User = {
   name: {
     type: String,
     trim: true,
@@ -205,8 +235,18 @@ register.scheme('User', {
     type: String,
     trim: true,
     default: ""
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  created: {
+    type: Date,
+    default: Date.now
   }
-});
+};
+
+register.scheme('User', User);
 ```
 
 ## That's all folks!
