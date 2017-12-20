@@ -3,6 +3,8 @@ const Application = require('./application');
 const Respond = require('./respond');
 const mongoose = require('mongoose');
 const Router = require('./router.js');
+const express = require('express');
+
 const app = new Application();
 
 function runApi(customConfig){
@@ -82,6 +84,8 @@ module.exports = {
     controllers: app.controllers,
     models: app.models,
     schemes: app.schemes,
+    instance: app.server,
+    express: express,
     config: config,
     register: {
         scheme: registerScheme,
