@@ -148,10 +148,8 @@ Working with a MongoDB(mongoose) + ExpressJs stack, I like to divide my API's st
 **Spoiler Alert**: You will notice it ahead, but `register` method is the way(pattern) to make clear, such developer and Appt, of what is what. Dizzy? No problem. Let move on! 
 
 
-#### Route
+#### ./routes/auth.js
 ```javascript
-// ./routes/auth.js
-
 const { route, controllers } = require('appt');
 
 route("/auth")
@@ -159,9 +157,9 @@ route("/auth")
   .post('/signin', req => controllers.auth.signIn(req.body));
 ```
 
-See the `controller.js` below. The only observation here is we have to export a class with static methods, because this is how we'll label it under the hoods.
+#### ./controllers/auth.js
 ```javascript
-const { expose, models, respond } = require('appt');
+const { register, models, respond } = require('appt');
 
 function signIn(data){
   const user = new models.User(data);
@@ -171,15 +169,14 @@ function signIn(data){
     .catch(err => err);
 }
 
-expose.controller('auth', {
+register.controller('auth', {
   signIn: signIn
 })
 ```
 
-Build your mongoose's models as usual, except for the use of `api` object.
-This is our `model.js`:
+#### ./models/user.js
 ```javascript
-const { expose, schemes } = require('appt');
+const { register, schemes } = require('appt');
 
 schemes.User.methods.signIn = () => {
   return this.save()
@@ -187,14 +184,13 @@ schemes.User.methods.signIn = () => {
     .catch(res => res);
 };
 
-expose.model('User', schemes.User);
+register.model('User', schemes.User);
 ```
 
-Finnaly our `scheme.js` file. I use to separate my schemes from models and if you do too, remember to set a name to it when you export. Take a look:
-```javascript
-const { expose } = require('appt');
+#### ./schemes/user.js```javascript
+const { register } = require('appt');
 
-expose.scheme('User', {
+register.scheme('User', {
   name: {
     type: String,
     trim: true,
@@ -215,6 +211,7 @@ expose.scheme('User', {
 
 ## That's all folks!
 If you have any suggestion or want to contribute somehow, let me know!
+
 
 ## License
 ```
