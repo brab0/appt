@@ -68,6 +68,7 @@ To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch
 ```
 
 Of course you may want override some of these settings. Take a look to the next session.
+
 **OBS:** All the non explicit overriden settings will be kept just as seen above.
 
 ## Usage
