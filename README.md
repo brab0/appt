@@ -266,6 +266,7 @@ register.scheme('User', User);
 ```
 **Whats going on:**
 To finish our API, on that scheme file, we just imported `register` method(as usual), declare a `const` in a mongoose style schema and register it(`register.scheme(...`) at the end. You don't see any `new Schema` mongoose stuff because it's all trivial and we deal with it under the hoods.
+**OBS:** What if I would want to use a mongoose function or type such `mongoose.Schema.Types.ObjectId` on one of these properties? Easy! just do something like: `import { register, mongoose } from 'appt'`...an use it as usual;
 
 
 ## That's all folks!
