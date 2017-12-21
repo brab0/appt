@@ -160,6 +160,8 @@ route("/auth")
 
 
 #### ./controllers/auth.js
+The main goal here is to give an overview about Appt, so we won't explain the whole application, but only things that makes sense to read the project, ok?. Lets do it!
+
 ```javascript
 import { models, respond, config, register } from 'appt';
 import jwt from 'jsonwebtoken';
@@ -193,6 +195,9 @@ register.controller('auth', {
 })
 ```
 **Whats going on:**
+- we import `models` object, which assemble every model of our application. Which is exactly what you see at the signIn method: `models.User.signIn(...`;
+- after the promise returns, we use the `respond` method(remember?). From here, we return our *status* and *result* in a formatted and `express response` way, back to the route(which uses a response middleware);
+- at the end, we register our controller(`register.controller)` giving it a name and exporting its methods. Because of this, Appt can assemble your core objects to be available in your entire application, since you import them;
 
 
 #### ./models/user.js
