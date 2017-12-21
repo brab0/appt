@@ -115,7 +115,7 @@ module.exports = {
     }
 }
 ```
-**Whats going on:**
+**What's going on:**
 - the `paths` setting is telling Appt where we design our core. So it will assemble it to us;
 - the `statics` will define where the api statics are;
 - the `access` will tell to Appt what routes JWT middleware must cover and what secrets to use against tokens sent;
@@ -135,7 +135,7 @@ api.run(config)
         throw new Error(err);
     });
 ```
-**Whats going on:**
+**What's going on:**
 - we called our config.js file previously defined;
 - imported the appt's `api` module and ran it passing our configs. Doing this, Appt boots its modules and, finnaly, load a server which return our configs as `res`. So now we can print our server status;
 
@@ -152,7 +152,7 @@ route("/auth")
   .get('/login/:user', req => controllers.auth.login(req.params))
   .post('/signin', req => controllers.auth.signIn(req.body));
 ```
-**Whats going on:**
+**What's going on:**
 - `route` is a instance of a classe which wraps express `Router` and `route` and make it simple. So, breaking the lines, we first define a baseUrl at `route("/auth")`, then allow you to chain all the subsequents http-request handlers.
 - since we're using `body-parser`, you post params ramains at the `req.body attrs and `get` at `req.params`;
 - `controllers` is an object containing the reference of all our core's controllers assembled. Which means we no longer need to require them by their paths;
@@ -195,7 +195,7 @@ register.controller('auth', {
   login
 })
 ```
-**Whats going on:**
+**What's going on:**
 - we import `models` object, which assemble every model of our application. Which is exactly what you see at the signIn method: `models.User.signIn(...`;
 - after the promise returns, we use the `respond` method(remember?). From here, we return our *status* and *result* in a formatted and `express response` way, back to the route(which uses a response middleware);
 - at the end, we register our controller(`register.controller)` giving it a name and exporting its methods. Because of this, Appt can assemble your core objects to be available in your entire application, since you import them;
@@ -226,7 +226,7 @@ UserScheme.statics.signIn = user => {
 
 register.model('User', UserScheme);
 ```
-**Whats going on:**
+**What's going on:**
 *...it's getting more obvious now, right? Even though, lets go...*
 - import your schemes, models and register;
 - set you `static`(or not) method as usual(when working with mongoose);
@@ -265,7 +265,7 @@ const User = {
 
 register.scheme('User', User);
 ```
-**Whats going on:**
+**What's going on:**
 To finish our API, on that scheme file, we just imported `register` method(as usual), declare a `const` in a mongoose style schema and register it(`register.scheme(...`) at the end. You don't see any `new Schema` mongoose stuff because it's all trivial and we deal with it under the hoods.
 
 **OBS:** What if I would want to use a mongoose function or type such `mongoose.Schema.Types.ObjectId` on one of these properties? Easy! just do something like: `import { register, mongoose } from 'appt'`...an use it as usual;
