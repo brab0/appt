@@ -226,6 +226,10 @@ UserScheme.statics.signIn = user => {
 register.model('User', UserScheme);
 ```
 **Whats going on:**
+*...it's getting more obvious now, right? Even though, lets go...*
+- import your schemes, models and register;
+- set you `static`(or not) method as usual(when working with mongoose);
+- register you model's methods;
 
 
 #### ./schemes/user.js
@@ -261,6 +265,7 @@ const User = {
 register.scheme('User', User);
 ```
 **Whats going on:**
+To finish our API, on that scheme file, we just imported `register` method(as usual), declare a `const` in a mongoose style schema and register it(`register.scheme(...`) at the end. You don't see any `new Schema` mongoose stuff because it's all trivial and we deal with it under the hoods.
 
 
 ## That's all folks!
