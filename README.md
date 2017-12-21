@@ -149,11 +149,12 @@ Working with a MongoDB(mongoose) + ExpressJs stack, I like to divide my API's st
 import { route, controllers } from 'appt';
 
 route("/auth")
-  .get('/login/:user', req => controllers.auth.login(req.body))
+  .get('/login/:user', req => controllers.auth.login(req.params))
   .post('/signin', req => controllers.auth.signIn(req.body));
 ```
 **Whats going on:**
-- `route` is a instance of a classe which wraps express routes and make it easier. So, breaking the lines, we first define a baseUrl at `route("/auth")`, then chain all the subsequents methods. That means every *get* http-request to `/auth/login/some-param` and *post* to `/auth/signin`, will be handled by these two routes;
+- `route` is a instance of a classe which wraps express `Router` and `route` and make it simple. So, breaking the lines, we first define a baseUrl at `route("/auth")`, then allow you to chain all the subsequents http-request handlers.
+- since we're using `body-parser`, you post params ramains at the `req.body attrs and `get` at `req.params`;
 - `controllers` is an object containing the reference of all our core's controllers assembled. Which means we no longer need to require them by their paths;
 
 **OBS:** You may have noticed(or will in the controller file), there's no *response* instance to *send* back our results and *statusCode*. Well, it's here. We encapsulate it into a middleware to run on every return from their designated methods. **Why?** It looks a good practice let our routes to receive AND to respond all the calls since they are our interfaces. To allow that, we provide the method `respond()`(next) so we can decide the status and result to send back from our controllers or even models;
@@ -266,6 +267,7 @@ register.scheme('User', User);
 ```
 **Whats going on:**
 To finish our API, on that scheme file, we just imported `register` method(as usual), declare a `const` in a mongoose style schema and register it(`register.scheme(...`) at the end. You don't see any `new Schema` mongoose stuff because it's all trivial and we deal with it under the hoods.
+
 **OBS:** What if I would want to use a mongoose function or type such `mongoose.Schema.Types.ObjectId` on one of these properties? Easy! just do something like: `import { register, mongoose } from 'appt'`...an use it as usual;
 
 
