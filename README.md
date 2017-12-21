@@ -1,5 +1,5 @@
 # Appt
-Overcome recurrency steps at the start of a NodeJs project building. 
+Overcome recurrency steps at NodeJs projects building. 
 
 
 ## Install
@@ -7,27 +7,27 @@ Overcome recurrency steps at the start of a NodeJs project building.
 
 
 ## What is this for?
-Lets say you're building an **ExpressJs**(*we love it, right?*) based API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`use`) your **routes**, handle your requests with a **body-parser**, configure some **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
+Lets say you're building an **ExpressJs**(*we love it, right?*) based API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`app.use()`) your **routes**, handle your requests with **body-parser**, configure **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
 
-Or you're may building a regular node's program. You will write a **glob requirer** to your **mongoose schemes and models** and...*hey, you also gonna have to require them all, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
+Or you're may just building a regular node's program. You will write a **glob requirer** to your **mongoose schemes and models** and...*hey, you also gonna have to require them all, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
  
 If some of these scenarios looks familiar or makes sense to you, well, **Appt is totally for you!!!**
 
 
 ## Resources
-To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch of resources(*wraps, middlewares, classes and default configuration*) as seen below:
+To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch of wraps, middlewares, classes and default configuration. We provide:
 - a middleware using [`body-parser`](https://www.npmjs.com/package/body-parser) to handle your request parameters; 
 - a configurable `static routes` helper using `express.static`;
 - a `JWT Middleware` middleware to handle access controll using [express-jwt](https://www.npmjs.com/package/express-jwt) package;
 - a MongoDB and Neo4j `Database Connection` helper;
-- an instantiation wrapper for [mongoose](https://www.npmjs.com/package/mongoose) models and schemes;
+- a wrapper for [mongoose](https://www.npmjs.com/package/mongoose) models and schemes;
 - a `Cypher's Query Class` wrapping [neo4j](https://www.npmjs.com/package/neo4j) package;
 - a `Redis Connection` helper using [cachegoose](https://www.npmjs.com/package/cachegoose) cached data;
 - an [express](https://www.npmjs.com/package/express) `Server` wrapper;
 - a `cross-domain(CORS)` helper;
-- a [`glob requirer`](https://www.npmjs.com/package/require-files) with a `register` to label, boot and assemble your core application(routes, controllers, models and schemas) and expose some utils according with your configurations;
+- a [`glob requirer`](https://www.npmjs.com/package/require-files) with a `register` to label, boot and assemble your core application(routes, controllers, models and schemas) and expose some utils;
 - a `Router Class` to wrap express routes and make the chaining of them easier;
-- and finnally, a bunch of predefined configurations, as seen below:
+- and finnally, a bunch of predefined configurations, as we can see below:
 ```javascript
 // defaults
 {
@@ -67,17 +67,15 @@ To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch
 }
 ```
 
-Of course you may want override some of these settings. Take a look to the next session.
-
+Of course you may want override some of these settings. Lets take a look to the next session.
 **OBS:** All the non explicit overriden settings will be kept just as seen above.
 
 ## Usage
 This session will guide you through an API example built with **Appt**. You can clone the whole example [right here](https://github.com/brab0/simple-men-template). 
 
-For this example we're gonna use: `statics paths`, `JWT` access controll, a custom folder structure(`paths`), `redis` to cache some queries and mongoDB. As told before, everything is built-in. The only external package we're using here is `jsonwebtoken` to encrypt our JWT token. 
+For this example, we're gonna use: `statics paths`, `JWT` access controll, a custom folder structure(`paths`), `redis` to cache some queries and mongoDB. As we told before, everything is built-in. The only external package we're using here is `jsonwebtoken` to encrypt our JWT token. 
 
 #### ./config.js
-Although we can find similarity on some api/app building steps, some configurations makes sense only for us. Said that, lets customize our API configurations as follows:
 ```javascript
 module.exports = {
     paths : {
@@ -118,15 +116,15 @@ module.exports = {
 }
 ```
 **Whats going on:**
-- the `paths` setting is where Appt will find and what it will assembled;
+- the `paths` setting is telling Appt where we design our core. So it will assemble it to us;
 - the `statics` will define where the api statics are;
-- the `access` will tell to Appt what routes JWT must cover and what secrets it should use to verify a header's request token;
-- `redis` and `database` set the connections of both. If you're using Neo4j you must to change the `type` to "neo4j"(such as you `uri`, of course).
-- to finish it, the `server` setting overrides `port`, which is now :3000;
+- the `access` will tell to Appt what routes JWT middleware must cover and what secrets to use against tokens sent;
+- `redis` and `database` set the connections of both. If you're using Neo4j you must to change the `type` to "neo4j"(such as your `uri`, of course).
+- to finish it, the `server` setting overrides default `port`, which is now :3000;
 
 
 #### ./main.js
-Once our API has all the configurations done, we should create our starter point(set it to be at your package.json):
+Once our API has all the configurations done, we should create our starter point. Lets take a look:
 ```javascript
 import { config } from './config';
 import { api } from 'appt';
@@ -138,15 +136,12 @@ api.run(config)
     });
 ```
 **Whats going on:**
-- we called our config.js file;
-- import an `api` instance of appt and ran it passing our config;
-- with the config passed, internally, api Appt instance boots the modules needed to attend our custom configs and, finnaly, returns a server instance;
+- we called our config.js file previously defined;
+- imported the appt's `api` module and ran it passing our configs. Doing this, Appt boots its modules and, finnaly, load a server which return our configs as `res`. So now we can print our server status;
 
 
 ### Core
-Working with a MongoDB(mongoose) + ExpressJs stack, I like to divide my API's structure between `routes`, `controllers`, `models` and `schemes`. Feel free to try something else, but remember to configure the `paths` as you designed and don't forget to `register` everything.
-
-**Spoiler Alert**: You will notice it ahead, but `register` method is the way(pattern) to make, both developer and Appt,  clear about what is what. Dizzy? No problem. Let move on! 
+Working with a MongoDB(mongoose) + ExpressJs stack, I like to divide my API's structure between `routes`, `controllers`, `models` and `schemes`in different files. Feel free to try something different, but remember to configure the `paths` as/where you designed them and, if you are working with MongoDB, always register your schemes and models (even if they are at the same file). 
 
 
 #### ./routes/auth.js
@@ -158,9 +153,11 @@ route("/auth")
   .post('/signin', req => controllers.auth.signIn(req.body));
 ```
 **Whats going on:**
-- `route` is a instance of a classe which wraps express routes and make it easier. So, breaking the lines, we first define a baseUrl with `route("/auth")`, then chains all the subsequents methods. This means that every http *get* requested to `/auth/login/90fn023` and posted to `/auth/signin`, will be handled by these two routes;
+- `route` is a instance of a classe which wraps express routes and make it easier. So, breaking the lines, we first define a baseUrl at `route("/auth")`, then chain all the subsequents methods. That means every *get* http-request to `/auth/login/some-param` and *post* to `/auth/signin`, will be handled by these two routes;
 - `controllers` is an object containing the reference of all our core's controllers assembled. Which means we no longer need to require them by their paths;
-**OBS:** Though we strongly recommed you to use Appt `route` class, you can opt working with traditional express router. If you do so, import it from Appt such as the instance of your server/app as well(import {express, server} from 'appt').
+
+**OBS:** You may have noticed(or will in the controller file), there's no *response* instance to *send* back our results and *statusCode*. Well, it's here. We encapsulate it into a middleware to run on every return from their designated methods. **Why?** It looks a good practice let our routes to receive AND to respond all the calls since they are our interfaces. To allow that, we provide the method `respond()`(next) so we can decide the status and result to send back from our controllers or even models;
+
 
 #### ./controllers/auth.js
 ```javascript
@@ -195,6 +192,8 @@ register.controller('auth', {
   login
 })
 ```
+**Whats going on:**
+
 
 #### ./models/user.js
 ```javascript
@@ -221,6 +220,8 @@ UserScheme.statics.signIn = user => {
 
 register.model('User', UserScheme);
 ```
+**Whats going on:**
+
 
 #### ./schemes/user.js
 ```javascript
@@ -254,9 +255,12 @@ const User = {
 
 register.scheme('User', User);
 ```
+**Whats going on:**
 
 
 ## That's all folks!
+Though we strongly recommed you to use Appt `route` class and mongoose wrapper, you can opt working with traditional express router and mongoose stufs. If you do so, import it from Appt such as the instance of your server/app as well(import {express, server, mongoose} from 'appt').
+
 If you have any suggestion or want to contribute somehow, let me know!
 
 
