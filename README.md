@@ -9,9 +9,9 @@ Overcome recurrency steps at NodeJs projects building.
 ## What is this for?
 Lets say you're building an **ExpressJs**(*we love it, right?*) based API. You probably will define a class or whatever to make a **database connection**, start a **server**, get an **express instance** and assemble (`app.use()`) your **routes**, handle your requests with **body-parser**, configure **CORS**, access controll(**JWT**) and so on...EVERY TIME! 
 
-Or you're may just building a regular node's program. You will write a **glob requirer** to your **mongoose schemes and models** and...*hey, you also gonna have to require them all, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
+Or you're may just building a regular node's program. You will write a **glob requirer** to your **mongoose schemes and models** and...*hey, you're also gonna have to require them all by their paths, even they've been loaded before*. Further that, good look when you change something on you *project's paths structure*.
  
-If some of these scenarios looks familiar or makes sense to you, well, **Appt is totally for you!!!**
+If some of these scenarios looks familiar and kinda annoy you, well, **Appt is totally for you!!!**
 
 
 ## Resources
