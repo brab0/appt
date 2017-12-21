@@ -270,7 +270,7 @@ To finish our API, on that scheme file, we just imported `register` method(as us
 
 
 ## That's all folks!
-Though we strongly recommed you to use Appt `route` class and mongoose wrapper, you can opt working with traditional express router and mongoose stufs. If you do so, import it from Appt such as the instance of your server/app as well(import {express, server, mongoose} from 'appt').
+Though we strongly recommed you to use Appt's mongoose wrapper, `route`, `register` assembler and `respond` classes, you can opt working with traditional pure express router and mongoose stufs. Just keep in mind the balance of what you're gonna use or even, again, if this project makes sense for you!
 
 If you have any suggestion or want to contribute somehow, let me know!
 
