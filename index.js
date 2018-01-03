@@ -36,9 +36,9 @@ function runApp(customConfig){
         .then(() => app.loadCore());
 }
 
-function registerScheme(name, scheme){            
+function registerScheme(name, scheme, extra){            
     if(app.config.database.type === "mongodb")
-        app.schemes[name] = new mongoose.Schema(scheme);    
+        app.schemes[name] = new mongoose.Schema(scheme, extra);    
     else
         app.schemes[name] = scheme;
 }
