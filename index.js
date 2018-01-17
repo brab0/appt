@@ -60,7 +60,7 @@ function respond(statusCode){
     return new Respond(statusCode)
 }
 
-function route(basePath){
+function route(basePath = ""){
     return new Router(app.server, basePath);
 }
 

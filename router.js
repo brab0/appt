@@ -1,143 +1,206 @@
 const express = require('express');
 
 module.exports = class Router{
-    constructor(server, basePath){
-        this.basePath = basePath;
+    constructor(server, basePath){        
         this.server = server; 
         this.exp = express.Router();
+        this.server.use(basePath, this.exp);
     }
 
-    checkout(path, next){        
-        this.server.use(this.basePath, this.exp);
-        this.exp.checkout(path, (req, res) => this.execute(req, res, next));
+    checkout(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.checkout(route.path, route.middlewares);
+        
         return this;
     }
 
-    copy(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.copy(path, (req, res) => this.execute(req, res, next));
+    copy(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.copy(route.path, route.middlewares);
+        
         return this;
     }
 
-    head(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.head(path, (req, res) => this.execute(req, res, next));
+    head(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.head(route.path, route.middlewares);
+        
         return this;
     }
 
-    lock(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.lock(path, (req, res) => this.execute(req, res, next));
+    lock(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.lock(route.path, route.middlewares);
+        
         return this;
     }
 
-    merge(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.merge(path, (req, res) => this.execute(req, res, next));
+    merge(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.merge(route.path, route.middlewares);
+        
         return this;
     }
 
-    mkactivity(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.mkactivity(path, (req, res) => this.execute(req, res, next));
+    mkactivity(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.mkactivity(route.path, route.middlewares);
+        
         return this;
     }
 
-    mkcol(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.mkcol(path, (req, res) => this.execute(req, res, next));
+    mkcol(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.mkcol(route.path, route.middlewares);
+        
         return this;
     }
     
-    move(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.move(path, (req, res) => this.execute(req, res, next));
+    move(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.move(route.path, route.middlewares);
+        
         return this;
     }
 
-    notify(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.notify(path, (req, res) => this.execute(req, res, next));
+    notify(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.notify(route.path, route.middlewares);
+        
         return this;
     }
 
-    patch(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.patch(path, (req, res) => this.execute(req, res, next));
+    patch(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.patch(route.path, route.middlewares);
+        
         return this;
     }
 
-    purge(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.purge(path, (req, res) => this.execute(req, res, next));
+    purge(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.purge(route.path, route.middlewares);
+        
         return this;
     }
 
-    report(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.report(path, (req, res) => this.execute(req, res, next));
+    report(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.report(route.path, route.middlewares);
+        
         return this;
     }
 
-    search(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.search(path, (req, res) => this.execute(req, res, next));
+    search(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.search(route.path, route.middlewares);
+        
         return this;
     }
 
-    subscribe(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.subscribe(path, (req, res) => this.execute(req, res, next));
+    subscribe(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.subscribe(route.path, route.middlewares);
+        
         return this;
     }
 
-    trace(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.trace(path, (req, res) => this.execute(req, res, next));
+    trace(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.trace(route.path, route.middlewares);
+        
         return this;
     }
 
-    unlock(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.unlock(path, (req, res) => this.execute(req, res, next));
+    unlock(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.unlock(route.path, route.middlewares);
+        
         return this;
     }
 
-    unsubscribe(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.unsubscribe(path, (req, res) => this.execute(req, res, next));
+    unsubscribe(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.unsubscribe(route.path, route.middlewares);
+        
         return this;
     }
 
-    post(path, next){        
-        this.server.use(this.basePath, this.exp);
-        this.exp.post(path, (req, res) => this.execute(req, res, next));
+    post(){        
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.post(route.path, route.middlewares);
+        
         return this;
     }
 
-    get(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.get(path, (req, res) => this.execute(req, res, next));
+    get(){
+        const route = this.getRouteParams(arguments);
+
+        this.exp.get(route.path, route.middlewares);
+        
         return this;
     }
 
-    put(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.put(path, (req, res) => this.execute(req, res, next));
+    put(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.put(route.path, route.middlewares);
+        
         return this;
     }
 
-    delete(path, next){
-        this.server.use(this.basePath, this.exp);
-        this.exp.delete(path, (req, res) => this.execute(req, res, next));
+    delete(){
+        const route = this.getRouteParams(arguments);
+        
+        this.exp.delete(route.path, route.middlewares);
+        
         return this;
     }
 
-    execute(req, res, next){
-        next(req)
-        .then(result => res.status(result.statusCode).send(result.data))
-        .catch(err => {
-            throw new Error(err);
-        });
+    getRouteParams(args){
+        const arrArgs = Array.from(args);
+        const path = arrArgs.shift();
+        const response = arrArgs.pop();
+        
+        return {
+            path: path, 
+            middlewares: arrArgs.concat((req, res, next) => this.execute(req, res, response))
+        };
+    }
+
+    execute(req, res, next){        
+        try{
+            next(req, res, next)
+                .then(result => res.status(result.statusCode).send(!!result.data && result.data.toString()))
+                .catch(ex => {
+                    throw new Error(ex);
+                })
+        } catch(ex){
+            const obj = next(req, res, next);
+
+            try{
+                res.status(obj.statusCode).send(!!obj.data && obj.data.toString())
+            } catch(ex){
+                throw new Error(ex)
+            }
+        }
     }
 }
