@@ -189,15 +189,17 @@ module.exports = class Router{
     execute(req, res, next){        
         try{
             next(req, res, next)
-                .then(result => res.status(result.statusCode).send(!!result.data && result.data.toString()))
+                .then(result => {
+                    if(result && result.statusCode) res.status(result.statusCode).send(result.data)
+                })
                 .catch(ex => {
                     throw new Error(ex);
                 })
         } catch(ex){
-            const obj = next(req, res, next);
+            const result = next(req, res, next);
 
             try{
-                res.status(obj.statusCode).send(!!obj.data && obj.data.toString())
+                if(result && result.statusCode) res.status(result.statusCode).send(result.data)
             } catch(ex){
                 throw new Error(ex)
             }
