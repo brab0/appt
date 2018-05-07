@@ -1,0 +1,15 @@
+{
+   "compilerOptions": {
+      "baseUrl": ".",
+      "rootDir": ".",
+      "target": "es6",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": false,
+      "removeComments": false
+   },
+   "paths": {      
+      "@appt/api": ["."]
+   },
+   "outDir": "./dist"
+}

@@ -1,11 +1,17 @@
 {
   "name": "@appt/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "brab0 <brabo.rodrigo@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^2.0.6"
+  },
+  "dependencies": {
+    "require-files": "^0.0.7"
+  }
 }

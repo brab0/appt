@@ -15,7 +15,6 @@ export class ApptModuleEntity {
             }
 
             resolve(Promise.all(importablePromises))
-            // return Promise.all(importablePromises).then(() => resolve())
       });
    }
 
@@ -31,7 +30,6 @@ export class ApptModuleEntity {
             }
       
             resolve(Promise.all(declarablePromises))
-            // return Promise.all(declarablePromises).then(() => resolve())
       });
    }
 }

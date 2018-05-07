@@ -1,5 +1,5 @@
-import { ApptComponentEntity } from '../core/appt.component';
-import apptEcossystem from '../core/appt.ecosystem';
+import { ApptComponentEntity } from '@appt/core/appt.component';
+import apptEcossystem from '@appt/core/appt.ecosystem';
 import { Router } from 'express';
 import apptApi from './appt.api';
 

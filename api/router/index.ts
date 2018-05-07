@@ -1,4 +1,4 @@
-import apptEcosystem from '../../core/appt.ecosystem'
+import apptEcosystem from '@appt/core/appt.ecosystem'
 import { apptRouterSystem } from '../TRouter';
 
 function getRouteParams(args, main){

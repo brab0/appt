@@ -1,4 +1,4 @@
-import { apptRouterSystem } from '../api/TRouter';
+import { apptRouterSystem } from './TRouter';
 import apptApi from './appt.api';
 
 interface TAddress {
@@ -43,10 +43,7 @@ export default class TServer{
          port : 3000
       };
       
-      this.defaultConfig.statics = [{
-         route: '/pictures',
-         path: '/public/assets/pictures'
-      }];
+      this.defaultConfig.statics = [];
 
       this.defaultConfig.bodyParser = {
          json: {

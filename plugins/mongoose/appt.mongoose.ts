@@ -1,5 +1,5 @@
 import { connect, set, model, models, Schema } from 'mongoose';
-import apptEcosystem from '../../core/appt.ecosystem';
+import apptEcosystem from '@appt/core/appt.ecosystem';
 
 export var schemas = {};
 
