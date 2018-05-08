@@ -9,7 +9,9 @@
   "author": "brab0 <brabo.rodrigo@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^2.0.6"
+    "typescript": "^2.0.6",
+    "@types/node": "^6.0.46",
+    "ts-node": "^3.3.0"
   },
   "dependencies": {
     "require-files": "^0.0.7"
