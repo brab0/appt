@@ -11,5 +11,6 @@
    "paths": {      
       "@appt/api": ["."]
    },
-   "outDir": "./dist"
+   "outDir": "./dist",
+   "types": ["node", "express", "body-parser"]
 }

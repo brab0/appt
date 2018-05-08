@@ -11,5 +11,6 @@
    "paths": {      
       "@appt/momngoose": ["."]
    },
-   "outDir": "./dist"
+   "outDir": "./dist",
+   "types": ["node", "mongoose"]
 }

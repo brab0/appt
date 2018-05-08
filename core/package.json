@@ -1,6 +1,6 @@
 {
   "name": "@appt/core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,10 @@
   },
   "author": "brab0 <brabo.rodrigo@gmail.com>",
   "license": "ISC",
-  "devDependencies": {
-    "typescript": "^2.0.6",
+  "dependencies": {
+    "require-files": "^0.0.7",
+    "typescript": "^2.5.3",
     "@types/node": "^6.0.46",
     "ts-node": "^3.3.0"
-  },
-  "dependencies": {
-    "require-files": "^0.0.7"
   }
 }

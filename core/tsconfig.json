@@ -11,5 +11,6 @@
    "paths": {      
       "@appt/core": ["."]
    },
-   "outDir": "./dist"
+   "outDir": "./dist",
+   "types": ["node"]
 }
