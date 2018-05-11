@@ -1,4 +1,4 @@
-import apptEcossystem from '@appt/core/appt.ecosystem';
+import { apptEcossystem } from '@appt/core';
 import { Router } from 'express';
 import apptApi from './appt.api';
 

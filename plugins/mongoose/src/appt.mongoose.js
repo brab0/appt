@@ -1,4 +1,4 @@
-import apptEcosystem from '@appt/core/appt.ecosystem';
+import { apptEcosystem } from '@appt/core';
 const mongoose = require('mongoose');
 
 const { models, Schema } = mongoose;
