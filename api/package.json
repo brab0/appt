@@ -1,24 +1,30 @@
 {
   "name": "@appt/api",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "rimraf dist/ && babel ./src --out-dir dist/ --copy-files",
+    "build": "rimraf dist/ && babel ./src --out-dir dist/ --copy-files && generate-export-aliases",
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "brab0 <brabo.rodrigo@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@appt/core": "^1.0.9",
     "body-parser": "^1.15.2",
     "express": "^4.16.2",
     "express-jwt": "^5.1.0",
-    "@appt/core": "^1.0.6"
+    "generate-export-aliases": "^1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "rimraf": "^2.6.2"
+  },
+  "config": {
+    "exportAliases": {
+      "router": "./dist/router/index.js"
+    }
   }
 }

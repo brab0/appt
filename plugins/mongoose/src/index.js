@@ -1,9 +1,8 @@
-import { TModel, TSchema, Mongoose, ObjectId, property } from './appt.mongoose';
+import { TModel, TSchema, Mongoose, ObjectId } from './appt.mongoose';
 
 export {
    Mongoose,
    TModel,
    TSchema,
-   ObjectId,
-   property
+   ObjectId
 }

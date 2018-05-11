@@ -12,9 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "@appt/core": "^1.0.6",
-    "@appt/api": "^1.0.6",
-    "@appt/mongoose": "^1.0.6"
+    "@appt/core": "^1.0.9",
+    "@appt/api": "^1.0.9",
+    "@appt/mongoose": "^1.0.9"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

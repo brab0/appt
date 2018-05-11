@@ -1,7 +1,7 @@
 import ApptBootstrap from './appt.bootstrap';
 import ApptModule from './appt.module';
 import ApptComponent from './appt.component';
-import ApptEcosystem from './appt.ecosystem';
+import apptEcosystem from './appt.ecosystem';
 import TDatabase from './TDatabase';
 
 export {
@@ -9,5 +9,5 @@ export {
    ApptComponent,
    TDatabase,
    ApptBootstrap,
-   ApptEcosystem
+   apptEcosystem
 };
