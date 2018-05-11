@@ -4,11 +4,9 @@ import { TRouter } from '@appt/api';
 @ApptComponent({
   extend: {
     type: TRouter,
-    use: [
-      'StaffEventoRouter'
-    ],
+    use: ['StaffEventoRouter'],
     config: { 
-      path: '/staff' 
+      path: '/staff'
     }
   }  
 })

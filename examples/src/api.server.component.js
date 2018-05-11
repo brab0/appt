@@ -1,15 +1,11 @@
 import { ApptComponent } from '@appt/core';
 import { TServer } from '@appt/api';
+import { server } from 'config';
 
 @ApptComponent({  
   extend: {
     type: TServer, 
-    config: {
-      address: {
-        host: 'http://localhost',
-        port: 3001
-      }    
-    }
+    config: server
   }
 })
 export class ApiServerComponent {  

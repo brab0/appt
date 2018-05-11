@@ -9,9 +9,7 @@ import { Get } from '@appt/api/router';
       path: '/evento'
     }
   },
-  inject: [
-    'StaffEventoController'
-  ]
+  inject: ['StaffEventoController']
 })
 export class StaffEventoRouter{ 
   constructor(controller){      

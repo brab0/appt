@@ -1,9 +1,7 @@
 import { ApptComponent } from '@appt/core';
 
 @ApptComponent({
-  inject: [
-    'Evento'
-  ]
+  inject: ['EventoModule']
 })
 export class StaffEventoController {  
   constructor(evento){
@@ -15,6 +13,6 @@ export class StaffEventoController {
   }
 
   getById(id){
-    return this.evento.getById(id)
+    return this.evento.getById(id);
   }
 }

@@ -4,21 +4,22 @@
   "description": "",
   "main": "api.main.module.js",
   "scripts": {
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./data/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run build && node dist/src/api.main.module.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "@appt/core": "^1.0.9",
     "@appt/api": "^1.0.9",
-    "@appt/mongoose": "^1.0.9"
+    "@appt/core": "^1.0.9",
+    "@appt/mongoose": "^1.0.9",    
+    "config": "^1.30.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4"
   }
 }

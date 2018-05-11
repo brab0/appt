@@ -7,7 +7,7 @@ import { TModel } from '@appt/mongoose';
     use: ['EventoScheme']
   }
 })
-export class Evento{    
+export class EventoModule{    
   static getAll(){
     return this.create({
       nome: 'Rodrigo',
