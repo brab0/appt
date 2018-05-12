@@ -5,7 +5,8 @@
   "main": "api.main.module.js",
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./data/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && node dist/src/api.main.module.js"
+    "start": "npm run build && node dist/src/api.main.module.js",
+    "local": "npm link ../core && npm link ../api && npm link ../plugins/mongoose && npm run build && node dist/src/api.main.module.js"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +14,7 @@
   "dependencies": {
     "@appt/api": "^1.0.9",
     "@appt/core": "^1.0.9",
-    "@appt/mongoose": "^1.0.9",    
+    "@appt/mongoose": "^1.0.9",
     "config": "^1.30.0"
   },
   "devDependencies": {

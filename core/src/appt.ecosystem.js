@@ -8,7 +8,7 @@ class ApptEcosystem {
 
    bootFiles(include, exclude){
        get(include, exclude)
-         .forEach(path => {
+         .forEach(path => {           
             require(path.replace('.ts', ''))
          });
       
@@ -18,10 +18,10 @@ class ApptEcosystem {
    getEntity(entityName){
       try {         
          return module.children
-            .find(entity => entity.exports[entityName] != null)
-               .exports[entityName];
+          .find(entity => entity.exports[entityName] != null)
+            .exports[entityName];
       } catch(ex) {
-         console.log(`Entity ${entityName} was not found. Check if you has exported or typed it right.`)
+        console.log(`Entity ${entityName} was not found. Check if you has exported or typed it right.`)
       }
    }
 

@@ -1,10 +1,10 @@
 import { ApptComponent } from '@appt/core';
 
 @ApptComponent({
-  inject: ['EventoModule']
+  inject: ['Evento']
 })
 export class StaffEventoController {  
-  constructor(evento){
+  constructor(evento){    
     this.evento = evento;
   }
 

@@ -7,7 +7,7 @@ import { TRouter } from '@appt/api';
     config: { 
       path: '/api' 
     },
-    use: ['StaffRouter']
+    use: ['StaffRouter', 'InformacaoRouter']
   }  
 })
 export class ApiRouterComponent {}

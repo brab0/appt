@@ -11,7 +11,7 @@
   "author": "brab0 <brabo.rodrigo@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@appt/core": "^1.0.9",
+    "@appt/core": "file:../core",
     "body-parser": "^1.15.2",
     "express": "^4.16.2",
     "express-jwt": "^5.1.0",

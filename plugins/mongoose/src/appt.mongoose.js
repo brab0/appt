@@ -1,5 +1,7 @@
 import { apptEcosystem } from '@appt/core';
+
 const mongoose = require('mongoose');
+// mongoose.Promise = require("bluebird");
 
 const { models, Schema } = mongoose;
 var model = mongoose.model.bind(mongoose);

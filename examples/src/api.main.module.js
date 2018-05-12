@@ -3,7 +3,8 @@ import { ApptModule, ApptBootstrap } from '@appt/core';
 @ApptModule({  
   import: [
     'ModelsModule',
-    'StaffModule'    
+    'StaffModule',
+    'InformacaoModule'
   ],
   declare: [    
     'ApiDatabaseComponent',

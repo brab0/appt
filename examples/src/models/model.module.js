@@ -1,6 +1,6 @@
 import { ApptModule } from '@appt/core';
 
 @ApptModule({
-  declare: ['EventoModule']
+  declare: ['Evento']
 })
 export class ModelsModule {}

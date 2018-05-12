@@ -1,12 +1,14 @@
+import jwt from "express-jwt";
+import EventEmitter from "events";
+
 import { apptEcossystem } from '@appt/core';
 import { Router } from 'express';
 import apptApi from './appt.api';
 
-import EventEmitter from "events";
-
 class ApptRoute {
   constructor(route, use, target){    
     this.path = route.path;
+    this.auth = route.auth;
     this.components = use;
     this.target = target;
   }
@@ -24,12 +26,12 @@ class RouterChain {
     }    
   }
 
-  getPathByTarget(target){
+  getByTarget(target){
     return new Promise((resolve, reject) => {    
       const route = this.list.find(route => target === route.target);      
       
       this.buildChain(route, completePath => {        
-        resolve(completePath.map(target => target.path).join(''))
+        resolve(completePath)
       });
     })
   }
@@ -69,17 +71,53 @@ class ApptRouterSystem {
   isReady(route){
     return new Promise(resolve => {
       this.ready.push(new EventEmitter());
-
+      
       return this.ready[this.ready.length - 1].on('complete', () => {        
-        return this.routerChain.getPathByTarget(route)
-          .then(basePath => {
-            const router = Router();
-            this.api.use(basePath, router);
-
+        return this.routerChain.getByTarget(route)          
+          .then(routerChain => this.setAuth(routerChain))
+          .then(routerChain => this.useRouterPath(routerChain))
+          .then(router => {               
             resolve(router)
           });         
       })
-    })
+    })    
+  }
+
+  setAuth(routerChain){    
+    let indexAuth = routerChain
+      .map(router => typeof(router.auth))
+        .indexOf('object');
+    
+    if(indexAuth > -1){
+      const protectedRouter = routerChain.slice(0, parseInt(indexAuth + 1));
+      
+      if(protectedRouter && protectedRouter.length > 0){        
+        this.api.use(this.getRouterPath(protectedRouter), jwt({
+            secret: protectedRouter[indexAuth].auth.secret
+          }).unless({
+            path: protectedRouter[indexAuth].auth.ignore ? protectedRouter[indexAuth].auth.ignore : null
+          }));
+
+        this.api.use((err, req, res, next) => {
+          if (err.name === 'UnauthorizedError') {
+            res.status(401).send('You shall not pass!!! Your token was not found or it\'s invalid.');
+          }
+        });
+      }
+    }    
+
+    return routerChain;
+  }
+
+  getRouterPath(routerChain){
+    return routerChain.map(target => target.path).join('');
+  }
+
+  useRouterPath(routerChain){    
+    const router = Router();
+    this.api.use(this.getRouterPath(routerChain), router);
+
+    return router;
   }
 
   addBasePath(route, use, target){    

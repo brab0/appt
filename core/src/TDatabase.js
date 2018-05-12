@@ -1,6 +1,3 @@
-const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
-
 export default class TDatabase {
    constructor(){}
 

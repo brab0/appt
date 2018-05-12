@@ -13,7 +13,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "mongoose": "^5.0.18",
-    "@appt/core": "^1.0.9"
+    "@appt/core": "file:../../core"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
