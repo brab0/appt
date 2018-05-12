@@ -1,8 +1,9 @@
-import { TModel, TSchema, Mongoose, ObjectId } from './appt.mongoose';
+import { TModel, TSchema, Mongoose, SchemaTypes, MongooseParse } from './appt.mongoose';
 
 export {
    Mongoose,
    TModel,
    TSchema,
-   ObjectId
+   SchemaTypes,
+   MongooseParse
 }

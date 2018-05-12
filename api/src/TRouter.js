@@ -116,7 +116,7 @@ class ApptRouterSystem {
   useRouterPath(routerChain){    
     const router = Router();
     this.api.use(this.getRouterPath(routerChain), router);
-
+  
     return router;
   }
 

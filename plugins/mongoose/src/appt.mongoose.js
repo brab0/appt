@@ -1,12 +1,15 @@
 import { apptEcosystem } from '@appt/core';
 
 const mongoose = require('mongoose');
-// mongoose.Promise = require("bluebird");
 
 const { models, Schema } = mongoose;
-var model = mongoose.model.bind(mongoose);
-var connect = mongoose.connect.bind(mongoose);
-var set = mongoose.set.bind(mongoose);
+
+const SchemaTypes = Schema.Types;
+const MongooseParse = mongoose.Types;
+
+const model = mongoose.model.bind(mongoose);
+const connect = mongoose.connect.bind(mongoose);
+const set = mongoose.set.bind(mongoose);
 
 class TModel {
   constructor() {}
@@ -46,41 +49,38 @@ class TSchema {
   }
 }
 
-const ObjectId = Schema.Types;
+function property(args){  
+  return function(target, key) {    
+    // if there is no default value
+    schemas = Object.assign(schemas, {
+      [target.constructor.name]: Object.assign({}, schemas[target.constructor.name], {
+        [key]: Object.assign({ type: {} }, args)
+      })
+    }) 
 
-/* Deactivated for now because it doesn't make much sense without ts */
-
-// function property(args){  
-//   return function(target, key) {    
-//     // if there is no default value
-//     schemas = Object.assign(schemas, {
-//       [target.constructor.name]: Object.assign({}, schemas[target.constructor.name], {
-//         [key]: Object.assign({ type: {} }, args)
-//       })
-//     }) 
-
-//     var setter = function (newVal) {
-//       schemas = Object.assign(schemas, {
-//         [target.constructor.name]: Object.assign({}, schemas[target.constructor.name], {
-//           [key]: Object.assign({
-//             default: newVal,
-//             type: typeof newVal
-//           }, args)
-//         })
-//       })
-//     };
+    var setter = function (newVal) {
+      schemas = Object.assign(schemas, {
+        [target.constructor.name]: Object.assign({}, schemas[target.constructor.name], {
+          [key]: Object.assign({
+            default: newVal,
+            type: typeof newVal
+          }, args)
+        })
+      })
+    };
     
-//     // Create new property with getter and setter
-//     Object.defineProperty(target, key, {
-//       set: setter,
-//       enumerable: true,
-//       configurable: true
-//     });
-//   }
-// }
+    // Create new property with getter and setter
+    Object.defineProperty(target, key, {
+      set: setter,
+      enumerable: true,
+      configurable: true
+    });
+  }
+}
 
 class Mongoose{
   constructor(){
+    this.instance = 
     this.defaultConfig = {
       host: 'mongodb://localhost',
       port: 27017,
@@ -90,6 +90,10 @@ class Mongoose{
     }
 
     this.customConfig = this.defaultConfig;
+  }
+
+  getInstance(){
+    return this.instance;
   }
 
   setHost(host) {
@@ -108,9 +112,9 @@ class Mongoose{
         this.customConfig.debug = debug || this.defaultConfig.debug;
     }
 
-    setOptions(options) {
-        this.customConfig.options = options || this.defaultConfig.options;
-    }
+  setOptions(options) {
+      this.customConfig.options = options || this.defaultConfig.options;
+  }
 
   exec(args) {
      this.setHost(args && args.host);     
@@ -124,15 +128,16 @@ class Mongoose{
         set('debug', this.customConfig.debug);                
         return this.customConfig;
       })
-    //   .catch(err => {        
-    //     throw new Error(err)
-    //   });
+      .catch(err => {        
+        throw new Error(err)
+      });
   }
 }
 
 export {
-   TModel,
-   TSchema,
-   Mongoose,
-   ObjectId
-}
+  TModel,
+  TSchema,
+  Mongoose,
+  SchemaTypes,
+  MongooseParse
+} 
