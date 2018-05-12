@@ -1,5 +1,5 @@
 import { ApptComponent } from '@appt/core';
-import { TModel } from '@appt/mongoose';
+import { TModel, MongooseParse } from '@appt/mongoose';
 
 @ApptComponent({
   extend: {
@@ -17,7 +17,7 @@ export class Evento{
     
   static getById(id){
     return this.findOne({ 
-      _id: id
+      _id: MongooseParse.ObjectId(id)
     })
   }
 }
