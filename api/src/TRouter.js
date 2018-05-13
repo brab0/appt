@@ -142,8 +142,6 @@ export default class TRouter {
   exec(base, use, Target, injectables) {    
     return apptRouterSystem.addBasePath(base, use, Target.name)
       .then(res => {        
-        apptRouterSystem.ready[Target.name].forEach(route => route.emit('complete'));
-
         if(injectables && injectables.length > 0){
           return new Target(...injectables)
         } else {

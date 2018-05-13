@@ -71,11 +71,21 @@ export default class TServer{
        });
    }
 
+   loadRoutes(){
+        Object.keys(apptRouterSystem.ready)
+            .forEach(routerName => {
+                apptRouterSystem.ready[routerName]
+                    .forEach(routerEvent => routerEvent.emit('complete'));
+            });
+   }
+
    exec(args, usable, Target, injectables) {
       this.setAddress(args && args.address);      
       this.setStatics(args && args.statics);
       this.setBodyParser(args && args.bodyParser);
       this.setCors(args && args.cors);
+
+      this.loadRoutes();
 
       return new Promise((resolve, reject) => {        
         this.api.listen(this.customConfig.address.port, 
