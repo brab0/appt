@@ -11,33 +11,43 @@ const model = mongoose.model.bind(mongoose);
 const connect = mongoose.connect.bind(mongoose);
 const set = mongoose.set.bind(mongoose);
 
+var schemas = {};
+
 class TModel {
   constructor() {}
    
   exec(args, usable, Target, injectables) {
-    const schemaPromise = apptEcosystem.getEntity(usable[0]);
-    
-    return schemaPromise()
-      .then(mySchema => {
-        const schema = new mySchema.target();
-        
+    return this.getSchema(usable[0])
+      .then(entitySchema => {
         if(models[Target.name]) {
             return models[Target.name]
         }
-        else {
-            const parsedSchema = Object.keys(schema)
-                .reduce((prev, crr) => {
-                    return Object.assign(prev, { [crr]: schema[crr] })
-                }, {});
-
-            const entitySchema = new Schema(parsedSchema, mySchema.args);
-            
+        else {          
             entitySchema.loadClass(Target);
                 
             return model(Target.name, entitySchema);
         }        
       })
       .catch(err => console.log(err))
+  }
+
+  getSchema(usable){
+    const schemaPromise = apptEcosystem.getEntity(usable);
+    
+    return schemaPromise()
+      .then(mySchema => {
+        const schema = new mySchema.target();
+        
+        const parsedSchema = Object.keys(schema)
+          .reduce((prev, crr) => {
+              return Object.assign(prev, { [crr]: schema[crr] })
+          }, {});
+
+        if(schemas && schemas[mySchema.target.name])
+          return new Schema(schemas[mySchema.target.name], mySchema.args);
+        else 
+          return new Schema(parsedSchema, mySchema.args);
+      })
   }
 }
 
@@ -49,7 +59,7 @@ class TSchema {
   }
 }
 
-function property(args){  
+const property = (args) => {
   return function(target, key) {    
     // if there is no default value
     schemas = Object.assign(schemas, {
@@ -139,5 +149,6 @@ export {
   TSchema,
   Mongoose,
   SchemaTypes,
-  MongooseParse
+  MongooseParse,
+  property
 } 
