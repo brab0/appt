@@ -71,17 +71,11 @@ export default class TServer{
        });
    }
 
-   loadRoutes(){
-     apptRouterSystem.ready.forEach(routeKey => routeKey.emit('complete'));
-   }
-
    exec(args, usable, Target, injectables) {
       this.setAddress(args && args.address);      
       this.setStatics(args && args.statics);
       this.setBodyParser(args && args.bodyParser);
       this.setCors(args && args.cors);
-
-      this.loadRoutes();
 
       return new Promise((resolve, reject) => {        
         this.api.listen(this.customConfig.address.port, 

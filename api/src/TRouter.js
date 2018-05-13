@@ -70,15 +70,19 @@ class ApptRouterSystem {
 
   isReady(route){
     return new Promise(resolve => {
-      this.ready.push(new EventEmitter());
       
-      return this.ready[this.ready.length - 1].on('complete', () => {        
-        return this.routerChain.getByTarget(route)          
+      if(this.ready[route])
+        this.ready[route].push(new EventEmitter());
+      else 
+        this.ready[route] = [new EventEmitter()];
+            
+      return this.ready[route][this.ready[route].length - 1].on('complete', () => {        
+        return this.routerChain.getByTarget(route)
           .then(routerChain => this.setAuth(routerChain))
           .then(routerChain => this.useRouterPath(routerChain))
-          .then(router => {               
+          .then(router => {
             resolve(router)
-          });         
+          });
       })
     })    
   }
@@ -113,7 +117,7 @@ class ApptRouterSystem {
     return routerChain.map(target => target.path).join('');
   }
 
-  useRouterPath(routerChain){    
+  useRouterPath(routerChain){
     const router = Router();
     this.api.use(this.getRouterPath(routerChain), router);
   
@@ -135,9 +139,11 @@ export const apptRouterSystem = new ApptRouterSystem();
 export default class TRouter {
   constructor(){}
 
-  exec(base, use, Target, injectables) {
+  exec(base, use, Target, injectables) {    
     return apptRouterSystem.addBasePath(base, use, Target.name)
-      .then(res => {
+      .then(res => {        
+        apptRouterSystem.ready[Target.name].forEach(route => route.emit('complete'));
+
         if(injectables && injectables.length > 0){
           return new Target(...injectables)
         } else {

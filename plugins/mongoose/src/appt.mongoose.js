@@ -84,7 +84,7 @@ class Mongoose{
     this.defaultConfig = {
       host: 'mongodb://localhost',
       port: 27017,
-      name: 'noname',
+      database: 'noname',
       debug: false,
       options: {}
     }
