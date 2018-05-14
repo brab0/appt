@@ -2,23 +2,23 @@ import {
   ApptModule, 
   ApptBootstrap, 
   ApptComponent, 
-  TDatabase 
+  // TDatabase 
 } from '@appt/core';
 
-import { 
-  Mongoose
-} from '@appt/mongoose';
+// import { 
+//   Mongoose
+// } from '@appt/mongoose';
 
-import { 
-  TServer 
-} from '@appt/api';
+// import { 
+//   TServer 
+// } from '@appt/api';
 
 @ApptModule({
-  import: [
-    'RouterModule'
-  ],
+  // import: [
+  //   'RouterModule'
+  // ],
   declare: [
-    'ModelComponent',
+    // 'ModelComponent',
     'DatabaseComponent',
     'ServerComponent'
   ]

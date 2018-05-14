@@ -21,13 +21,36 @@ To allow you building **ready-to-go NodeJs applications**, Appt provides a bunch
 - a `cross-domain(CORS)` helper;
 
 ## Install
-    $ npm install appt --save
+    $ npm install @appt/core --save
 
-## Usage
-This session will guide you through an API example built with **Appt**. 
+## Core
+
+*./models/Person.js*
 
 ```javascript
+export default class Person {
+	constructor(){}
+	
+	greeting(_id){
+		const person = new ModelPerson();
+		const name = person.getPersonNameById(_id);
+		
+		console.log(`Hey ${name}. How are you doing?`)
+	}
+}
 ```
+
+```javascript
+// Main.js
+import Person from '../../../../models/Person'
+
+const person = new Person();
+
+person.greeting();
+```
+
+## That's it?!
+Not even close.
 
 ## License
 ```
