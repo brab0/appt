@@ -2,6 +2,7 @@
 # Appt
 A lightweight *exo-framework* for *ready-to-go* **NodeJs** applications.
 
+
 ## What?!
 It's interesting how the idea of framework remains the same since 90's years. Even with all the *packages manager running*, essentially most of them still use cannonballs to kill flies and require a big learn curve. Said that...
 
@@ -9,6 +10,7 @@ It's interesting how the idea of framework remains the same since 90's years. Ev
 
 **Not easy, right? But possible!** 
 Lets introduce some concepts used by Appt.
+
 
 ## Main Concepts
 Thanks to ECMA new features, Appt's core works like an **exo-framework**. Which means we can interfere helping you to smooth some development steps, but on way which can be less intrusive. 
@@ -52,32 +54,73 @@ export class PersonModel {
 	}
 }
 ```
+*That's it?* **NOT EVEN CLOSE!**
+If you understood the possibilities of scale the example above, then you understood the idea of Appt!
 
-### Specials Decorator Types
+### Special-Types Decorators
+@ApptModule and @ApptComponent decorators, basically has the purpose to assemble and handle the implementation logic, respectively. The *Special-Types Decorators* add some power and extend particular behaviours to them.
+```javascript
+/* api.main.js */
 
+import { ApptBootstrap, ApptModule } from '@appt/core';
+
+@ApptModule({
+	declare: ['ApiServer']
+})
+export class MainModule {}
+
+ApptBootstrap.module('MainModule');
+```
+```javascript
+/* api.server.js */
+
+import { ApptComponent } from '@appt/core';
+import { TServer } from '@appt/api';
+
+@ApptComponent({
+	extend: {
+		type: TServer,
+		config: {
+			host: 'localhost',
+			port: 3000
+		}
+	}
+})
+export class ApiServer {
+	constructor(config){
+		console.log(`Server running at ${config.host}:${config.port}`);
+	}
+}
+```
 
 ### Plugins
-
+Plugins are essentially wrappers developed to work specifically into the Appt's ecosystem. Although you may not need them, you will notice that, working with them will decrease your development effort, besides will give your code an semantical and elegant meaning.
 
 ## Packages
 To guarantee you're gonna use (and load) only what you want/need, the Appt project is fully modularized and uncoupled by scope.
  
 ### @appt/core
-
+The Appt's ecosystem package. 
+**Read the docs:** https://github.com/brab0/appt/tree/master/core
 #### Install
     $ npm install @appt/core --save
 
-
 ### @appt/api
+A ready-to-go wrapper to build amazing API's that gathers essential tools, such as [express](https://www.npmjs.com/package/express), [`body-parser`](https://www.npmjs.com/package/body-parser) and [express-jwt](https://www.npmjs.com/package/express-jwt).
+**Read the docs:** https://github.com/brab0/appt/tree/master/api
+
 #### Install
     $ npm install @appt/api --save
 
 ### @appt/mongoose
+A wrapper to put [mongoose](https://www.npmjs.com/package/mongoose) inside the Appt's ecosystem and make it works on crack!
+**Read the docs:** https://github.com/brab0/appt/tree/master/plugins/mongoose
 #### Install
     $ npm install @appt/mongoose --save
 
 ### @appt/legacy
-That was the first implementation of Appt. Still has some value and it's really straightforward. It has an scheme/configuration approach. If you feel curious about it, maybe it's worth to check it out: https://github.com/brab0/appt/tree/master/legacy
+That was the first implementation of Appt. Still has some value and it's really straightforward. It has an scheme/configuration approach. If you feel curious about it, maybe it's worth to check it out. 
+**Read the docs:** https://github.com/brab0/appt/tree/master/legacy
 
 #### Install
     $ npm install @appt/legacy --save
