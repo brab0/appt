@@ -92,9 +92,7 @@ class Mongoose{
   constructor(){
     this.instance = 
     this.defaultConfig = {
-      host: 'mongodb://localhost',
-      port: 27017,
-      database: 'noname',
+      uri: 'mongodb://localhost:27017/sample',
       debug: false,
       options: {}
     }
@@ -106,16 +104,8 @@ class Mongoose{
     return this.instance;
   }
 
-  setHost(host) {
-     this.customConfig.host = host || this.defaultConfig.host;
-  }
-
-  setPort(port) {
-     this.customConfig.port = port || this.defaultConfig.port;
-  }
-
-  setDatabase(database) {
-     this.customConfig.database = database || this.defaultConfig.database;
+  setUri(uri) {
+     this.customConfig.uri = uri || this.defaultConfig.uri;
   }
 
   setDebug(debug) {
@@ -127,15 +117,13 @@ class Mongoose{
   }
 
   exec(args) {
-     this.setHost(args && args.host);     
-     this.setPort(args && args.port);
-     this.setDatabase(args && args.database);
+     this.setUri(args && args.uri);     
      this.setDebug(args && args.debug);
      this.setOptions(args && args.options);
      
-     return connect(this.customConfig.host + ':' + this.customConfig.port + '/' + this.customConfig.database, this.customConfig.options)
+     return connect(this.customConfig.uri, this.customConfig.options)
       .then(() => {    
-        set('debug', this.customConfig.debug);                
+        set('debug', this.customConfig.debug);
         return this.customConfig;
       })
       .catch(err => {        
