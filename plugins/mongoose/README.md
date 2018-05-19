@@ -13,6 +13,11 @@ This document will introduce the `@appt/mongoose` plugin package. We assume you 
     
 ## @appt/mongoose
 This is a plugin made for the Mongoose ODM that wraps it to works into the Appt's ecosystem.
+
+## Third-Party
+We don't want re-invent the wheel! Thanks to these amazing packages out there we can go straight to the point. 
+By now, we're using(wrapping) only [Mongoose](https://www.npmjs.com/package/mongoose) for advanced database models and schemes;
+
  
 ## Resources
 The `@appt/mongoose` plugin export some resources which can be imported as seen below:
@@ -23,7 +28,7 @@ import {
 	TSchema,
 	SchemaTypes,
 	MongooseParse
-} from '@appt/core';
+} from '@appt/mongoose';
 ```
 
 ### Mongoose
@@ -77,7 +82,7 @@ export class AppShema(){
 			trim: true,
 			default: "",
 		}
-		
+
 		this.email = {
 			type: String,
 			trim: true,
