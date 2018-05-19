@@ -12,7 +12,7 @@ This document will introduce the `@appt/mongoose` plugin package. We assume you 
 
     
 ## @appt/mongoose
-
+This is a plugin made for the Mongoose ODM that wraps it to works into the Appt's ecosystem.
  
 ## Resources
 The `@appt/mongoose` plugin export some resources which can be imported as seen below:
@@ -88,17 +88,20 @@ export class AppShema(){
 ```
 
 ### SchemaTypes
+This is an Appt interface for Mongoose ODM schema types. It exposes every type available by Mongoose.
 ```javascript
-import { TSchema } from '@appt/mongoose';
+import { SchemaTypes } from '@appt/mongoose';
 ...
 	this._id = {
-		type: TSchema.ObjectId,
+		type: SchemaTypes.ObjectId,
 		require: true
 	}
 ...
 ```
 
 ### MongooseParse
+This is an Appt interface for Mongoose ODM schema parsers. It exposes every parser available by Mongoose.
+
 ```javascript
 import { MongooseParse } from '@appt/mongoose';
 ...
