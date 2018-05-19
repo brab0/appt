@@ -1,21 +1,22 @@
+
 # Appt
 A lightweight *exo-framework* for *ready-to-go* **NodeJs** applications.
 
 
 ## What?!
-Thanks to ES6 features, Appt's core works like an **exo-framework**. Which means we can help your development process, being less intrusive. 
-> Even removing **@appt/core** *out of the way*, your implementation's logic still makes sense and gonna work.
+This document will introduce the main package to start using Appt into your projects, the `@appt/core`. We assume you got here after seeing the [Appt's Main](https://github.com/brab0/appt) page. If you don't, we strongly recommend you to step back an take a 5 minutes reading to get used with some concepts we're going to apply here.
 
-### Modules && Components
-**EVERYTHING** on Appt's core is about the perception of **Modules** and **Components**, which are implemented by `@ApptModule` and `@ApptComponent` decorators. The main purpose of them is to *assemble* and *handle the implementation's logic*, respectively, on a way you can naturally build your application as you always do (*building your custom middlewares, server, database connections and so on...*), letting Appt to wrap it all with simplicity on a *non-intrusive* style.
-
-#### Install
+## Install
     $ npm install @appt/core --save
 
 
 ## Compatibility
-Because Appt use ES6 features, your project must predict that and make use of some compiler tool, such as [babel](https://babeljs.io/), and configure it to work with decorators as annotation (*babel-plugin-transform-decorators-legacy*).
-For **TypeScript** development, decorators are available as an experimental feature (use experimentalDecorators as true on your tsconfig.json).
+**We're using ES6 features!** Which means you gonna need to compile your code to work with current versions of **NodeJs**. Thankfully, there's a lot of tools out there doing that, such as [babel](https://babeljs.io/).
+You might also want to work with **TypeScript**. If you do, check the *experimental decorators support* to start coding.
+
+    
+## Overview
+**EVERYTHING** on Appt's core is about the perception of **Modules** and **Components**, which are implemented by `@ApptModule` and `@ApptComponent` decorators. The main purpose of them is to *assemble* and *handle the implementation's logic*, respectively, on a way you can naturally build your application as you always do (*building your custom middlewares, server, database connections and so on...*), letting Appt to wrap it all with simplicity on a *non-intrusive* style.
 
 
 ## That's all folks!
