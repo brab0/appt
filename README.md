@@ -9,7 +9,9 @@ It's interesting how the idea of framework remains the same since 90's. Even wit
 
 > "how do we create a framework unnecessarily heavy, semantically intuitive, which can overcome recurrent steps on building process applications, without being too imperative, focusing on fast and scalable development?"
 
-**We made Appt!** Lets introduce some concepts used by Appt.
+**We made Appt!**
+
+*This document will introduce the main concepts used by Appt while the examples (yes, you'll see some code, but **not here**) will be separated according to their respective contexts with links to them at the **Packages** session below.*
 
 
 ## Main Concepts
