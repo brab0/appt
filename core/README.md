@@ -99,9 +99,6 @@ There are few thing here:
 It is the only Special-Type Extender of the package. It is only an implementation of a generic database connector that is ready/needs to couple (*use*) a 'driver' to execute what kind of database we are going to work with.
 
 
-## Hands On
-
-
 ## Compatibility
 **We're using ES6 features!** Which means you gonna need to compile your code to work with current versions of **NodeJs**. Thankfully, there's a lot of tools out there doing that, such as [babel](https://babeljs.io/).
 You might also want to work with **TypeScript**. If you do, check the *experimental decorators support* option to start coding.
