@@ -13,6 +13,13 @@ It's interesting how the idea of framework remains the same since 90's. Even wit
 
 *This document will introduce the main concepts used by Appt while the examples (yes, you'll see some code, but **not here**) will be separated according to their respective contexts with links to them at the **Packages** session below.*
 
+## Why?
+Imagine yourself starting a new project, which you don't really sure about the architecture. You'll write some code, import packages and classes by their paths when suddenly *BOOM*: you decide to reorganize everything. You're gonna rewrite every *../../../../path* of every single file into your project. 
+
+...Or maybe, you're on a complex project, which becomes bigger and bigger fast, and the more it grows, the more impossible becomes to read and find yourself on it.
+
+If some of those scenarios looks familiar and bother you, **you should definitely use Appt**!
+
 
 ## Packages
 To guarantee you're gonna use (*and load*) only what you want/need, Appt is fully modularized and uncoupled by scoped packages.
