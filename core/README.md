@@ -9,13 +9,6 @@ This document will introduce the *main package to start using Appt* into your pr
 ## Install
     $ npm install @appt/core --save
 
-    
-## Why?
-Imagine yourself starting a new project, which you don't really sure about the architecture. You'll write some code, import packages and classes by their paths when suddenly *BOOM*: you decide to reorganize everything. You're gonna rewrite every *../../../../path* of every single file into your project. 
-
-...Or maybe, you're on a complex project, which becomes bigger and bigger fast, and the more it grows, the more impossible becomes to read and find yourself on it.
-
-If some of those scenarios looks familiar and bother you, **you should definitely use Appt**!
 
 ## @appt/core
 This package is the main dependency of the framework. With it, you can start your NodeJs application and scale it on a *non-intrusive/non-imperative* way by maintaining everything over a **Dependency Injection Pattern** working together with a **Module/Component** abstraction provided by Appt.
