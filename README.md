@@ -83,15 +83,6 @@ Plugins are, essentially, uncoupled wrappers developed to work with third party 
 ## Compatibility
 Because Appt use ES6 features, your project must predict that and make use of some compiler tool, such as [babel](https://babeljs.io/), and configure it to work with decorators as annotation (*babel-plugin-transform-decorators-legacy*).
 For **TypeScript** development, decorators are available as an experimental feature (use experimentalDecorators as true on your tsconfig.json).
-
-
-## Third-Party
-We don't want re-invent the wheel! Thanks to these amazing packages out there we can go straight to the point. 
-There is some of those we're using at this project:
-- [mongoose](https://www.npmjs.com/package/mongoose) for advanced database models and schemes;
-- [`body-parser`](https://www.npmjs.com/package/body-parser) to handle the request parameters;
-- [express](https://www.npmjs.com/package/express) to run api's `Server`, `Routes`, `Statics`, `cross-domain(CORS)` and so on...
-- [express-jwt](https://www.npmjs.com/package/express-jwt) to handle the access control;  
   
   
 ## That's all folks!
