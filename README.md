@@ -17,128 +17,68 @@ Thanks to ES6 features, Appt's core works like an **exo-framework**. Which means
 > Even removing **@appt/core** *out of the way*, your implementation's logic still makes sense and gonna work.
 
 ### Dependecy Injection
-The whole *Appt's ecosystem* is based on *dependecy injection pattern*, using the power of **decorators** over the **annotation** sintaxe style. This allows Appt's core to be more *flexible* and scale your application easier without being a lot imperative. 
+The whole *Appt's ecosystem* is based on *dependecy injection pattern*, using the power of **decorators** over the **annotation** sintaxe style (*AtScript*). This allows Appt's core to be more *flexible* and *scale* your application easier *without being a lot imperative.* 
 
 ### Modules && Components
-**EVERYTHING** on Appt's core is about the perception of **Modules** and **Components**, which are implemented by *@ApptModule* and *@ApptComponent* decorators with the purpose to assemble and handle the implementation's logic, respectively. 
+**EVERYTHING** on Appt's core is about the perception of **Modules** and **Components**, which are implemented by `@ApptModule` and `@ApptComponent` decorators. The main purpose of them is to *assemble* and *handle the implementation's logic*, respectively, on a way you can naturally build your application as you always do (*building your custom middlewares, server, database connections and so on...*), letting Appt to wrap it all with simplicity on a *non-intrusive* style.
 
 ### Special-Type Extenders
-@ApptModule and @ApptComponent have *specific and simple roles* to the Appt's ecosystem, but we can improve their behaviours by providing some '*type*' to them. *Special-Type Extenders* add some powers to core decorators, for example,  by transforming a component into a `Express Server`, `Mongo Database` and so on...
+Even the main core decorators `@ApptModule` and `@ApptComponent` have particular and simple roles, Appt also provides a way to add some powers and behaviours to them, making use of *Special-Type Extenders*. That means, even you do not need them, they can give an elegant, semantic and straightforward approach to your server implementation, database connection, routes etc. 
 
-### Configurations
-
+### Default Configurations
+Because we are also talking about to create *ready-to-go NodeJs applications*, every Special-Type Extender has its default configuration. That means Appt can overcome some trivial steps on development process, such as writing `CORS`, defining `Body Parsers`, making `JWT middlewares`, configuring `Routers` etc, by simply providing built-in default configuration and, of course, letting you overwrite them.
 
 ### Plugins
-Plugins are essentially wrappers developed to work specifically into the Appt's ecosystem. Although you may not need them, you will notice that working with them will decrease your development effort.
-```javascript
-/* api.main.js */
+Plugins are, essentially, uncoupled wrappers developed to work with third party packages to work specifically into the Appt's ecosystem. Although you might not need them, you will notice they can decrease your development effort an give you an elegant approach.
 
-import { ApptBootstrap, ApptModule } from '@appt/core';
-
-@ApptModule({
-	declare: ['ApiServer']
-})
-export class MainModule {}
-
-ApptBootstrap.module('MainModule');
-```
-```javascript
-/* api.server.js */
-
-import { ApptComponent } from '@appt/core';
-import { TServer } from '@appt/api';
-
-@ApptComponent({
-	extend: {
-		type: TServer,
-		config: {
-			host: 'localhost',
-			port: 3000
-		}
-	}
-})
-export class ApiServer {
-	constructor(config){
-		console.log(`Server running at ${config.host}:${config.port}`);
-	}
-}
-```
 
 ## Packages
-To guarantee you're gonna use (and load) only what you want/need, the Appt project is fully modularized and uncoupled by scope.
- 
-### @appt/core
-The Appt's ecosystem package. 
-**Read the docs:** https://github.com/brab0/appt/tree/master/core
-#### Install
-    $ npm install @appt/core --save
-    
-Basically, **EVERYTHING** on Appt's core is about the perception of **Modules** (*@ApptModule*) and **Components** (*@ApptComponent*). 
-**EVERYTHING** on Appt is about these two decorators and the definition of each one on your application is essentially yours.
-```javascript
-/* app.main.js */
-
-import { ApptBootstrap, ApptModule } from '@appt/core';
-
-@ApptModule({
-	declare: ['PersonModel', 'PersonController']
-})
-export class MainModule {}
-
-ApptBootstrap.module('MainModule');
-```
-```javascript
-/* app.person.js */
-
-import { ApptComponent } from '@appt/core';
-
-@ApptComponent({
-	inject: ['PersonModel']
-})
-export class PersonController {
-	constructor(person){
-		const greeting = person.sayHello('Appt')
-		console.log(greeting);
-	}
-}
-
-@ApptComponent()
-export class PersonModel {
-	sayHello(you){
-		return `Hello ${you}`;
-	}
-}
-```
-*That's it?* **NOT EVEN CLOSE!**
-If you understood the possibilities of scale the example above, then you understood the idea of Appt!
-
-
-### @appt/api
-A ready-to-go wrapper to build amazing API's that gathers essential tools, such as [express](https://www.npmjs.com/package/express), [`body-parser`](https://www.npmjs.com/package/body-parser) and [express-jwt](https://www.npmjs.com/package/express-jwt).
-**Read the docs:** https://github.com/brab0/appt/tree/master/api
-
-#### Install
-    $ npm install @appt/api --save
-
-### @appt/mongoose
-A wrapper to put [mongoose](https://www.npmjs.com/package/mongoose) inside the Appt's ecosystem and make it works on crack!
-**Read the docs:** https://github.com/brab0/appt/tree/master/plugins/mongoose
-#### Install
-    $ npm install @appt/mongoose --save
+To guarantee you're gonna use (*and load*) only what you want/need, Appt is fully modularized and uncoupled by scoped packages.
 
 ### @appt/legacy
-That was the first implementation of Appt. Still has some value and it's really straightforward. It has an scheme/configuration approach. If you feel curious about it, maybe it's worth to check it out. 
-**Read the docs:** https://github.com/brab0/appt/tree/master/legacy
+There was an first implementation of Appt. It still has some value and it's really straightforward. It has an scheme/configuration approach. If you feel curious about it, maybe it's worth to check it out. 
 
 #### Install
     $ npm install @appt/legacy --save
 
+**Read the docs:** https://github.com/brab0/appt/tree/master/legacy
+
+ 
+### @appt/core
+The Appt's ecosystem package. It's responsible for give the DI approach.
+
+#### Install
+    $ npm install @appt/core --save
+
+**Read the docs:** https://github.com/brab0/appt/tree/master/core
+
+    
+### @appt/api
+A ready-to-go wrapper to build amazing API's that gathers essential tools, such as [express](https://www.npmjs.com/package/express), [`body-parser`](https://www.npmjs.com/package/body-parser) and [express-jwt](https://www.npmjs.com/package/express-jwt), putting them all into Appt's ecosystem.
+
+#### Install
+    $ npm install @appt/api --save
+
+**Read the docs:** https://github.com/brab0/appt/tree/master/api
+
+
+### @appt/mongoose
+A wrapper to put [mongoose](https://www.npmjs.com/package/mongoose) inside the Appt's ecosystem and make it works on crack!
+
+#### Install
+    $ npm install @appt/mongoose --save
+
+**Read the docs:** https://github.com/brab0/appt/tree/master/plugins/mongoose
+
 
 ## Compatibility
-Because Appt use ES6 features of AtScript decorators/annotations, your project must predict that and make use of some compiler tool, such and [babel](https://babeljs.io/), together with *babel-plugin-transform-decorators-legacy*. For **TypeScript** users, the support is native.
+Because Appt use ES6 features, your project must predict that and make use of some compiler tool, such as [babel](https://babeljs.io/), and configure it to work with decorators as annotation (*babel-plugin-transform-decorators-legacy*).
+For **TypeScript** development, decorators are available as an experimental feature (use experimentalDecorators as true on your tsconfig.json).
+
 
 ## Third-Party
-We don't want re-invent the wheel! Thanks to these amazing packages out there we can go straight to the point and focus on the environment desired. There is some of those we're using at this project:
+We don't want re-invent the wheel! Thanks to these amazing packages out there we can go straight to the point. 
+There is some of those we're using at this project:
 - [mongoose](https://www.npmjs.com/package/mongoose) for advanced database models and schemes;
 - [`body-parser`](https://www.npmjs.com/package/body-parser) to handle the request parameters;
 - [express](https://www.npmjs.com/package/express) to run api's `Server`, `Routes`, `Statics`, `cross-domain(CORS)` and so on...
