@@ -14,26 +14,6 @@ It's interesting how the idea of framework remains the same since 90's. Even wit
 *This document will introduce the main concepts used by Appt while the examples (yes, you'll see some code, but **not here**) will be separated according to their respective contexts with links to them at the **Packages** session below.*
 
 
-## Main Concepts
-Thanks to ES6 features, Appt's core works like an **exo-framework**. Which means we can help your development process, being less intrusive. 
-> Even removing **@appt/core** *out of the way*, your implementation's logic still makes sense and gonna work.
-
-### Dependecy Injection
-The whole *Appt's ecosystem* is based on *dependecy injection pattern*, using the power of **decorators** over the **annotation** sintaxe style (*AtScript*). This allows Appt's core to be more *flexible* and *scale* your application easier *without being a lot imperative.* 
-
-### Modules && Components
-**EVERYTHING** on Appt's core is about the perception of **Modules** and **Components**, which are implemented by `@ApptModule` and `@ApptComponent` decorators. The main purpose of them is to *assemble* and *handle the implementation's logic*, respectively, on a way you can naturally build your application as you always do (*building your custom middlewares, server, database connections and so on...*), letting Appt to wrap it all with simplicity on a *non-intrusive* style.
-
-### Special-Type Extenders
-Even the main core decorators `@ApptModule` and `@ApptComponent` have particular and simple roles, Appt also provides a way to add some powers and behaviours to them, making use of *Special-Type Extenders*. That means, even you do not need them, they can give an elegant, semantic and straightforward approach to your server implementation, database connection, routes etc. 
-
-### Default Configurations
-Because we are also talking about to create *ready-to-go NodeJs applications*, every Special-Type Extender has its default configuration. That means Appt can overcome some trivial steps on development process, such as writing `CORS`, defining `Body Parsers`, making `JWT middlewares`, configuring `Routers` etc, by simply providing built-in default configuration and, of course, letting you overwrite them.
-
-### Plugins
-Plugins are, essentially, uncoupled wrappers developed to work with third party packages to work specifically into the Appt's ecosystem. Although you might not need them, you will notice they can decrease your development effort an give you an elegant approach.
-
-
 ## Packages
 To guarantee you're gonna use (*and load*) only what you want/need, Appt is fully modularized and uncoupled by scoped packages.
  
@@ -71,6 +51,26 @@ There was a first implementation of Appt concept. It's not maintained anymore, b
     $ npm install @appt/legacy --save
 
 **Read the docs:** https://github.com/brab0/appt/tree/master/legacy
+
+
+## Main Concepts
+Thanks to ES6 features, Appt's core works like an **exo-framework**. Which means we can help your development process, being less intrusive. 
+> Even removing **@appt/core** *out of the way*, your implementation's logic still makes sense and gonna work.
+
+### Dependecy Injection
+The whole *Appt's ecosystem* is based on *dependecy injection pattern*, using the power of **decorators** over the **annotation** sintaxe style (*AtScript*). This allows Appt's core to be more *flexible* and *scale* your application easier *without being a lot imperative.* 
+
+### Modules && Components
+**EVERYTHING** on Appt's core is about the perception of **Modules** and **Components**, which are implemented by `@ApptModule` and `@ApptComponent` decorators. The main purpose of them is to *assemble* and *handle the implementation's logic*, respectively, on a way you can naturally build your application as you always do (*building your custom middlewares, server, database connections and so on...*), letting Appt to wrap it all with simplicity on a *non-intrusive* style.
+
+### Special-Type Extenders
+Even the main core decorators `@ApptModule` and `@ApptComponent` have particular and simple roles, Appt also provides a way to add some powers and behaviours to them, making use of *Special-Type Extenders*. That means, even you do not need them, they can give an elegant, semantic and straightforward approach to your server implementation, database connection, routes etc. 
+
+### Default Configurations
+Because we are also talking about to create *ready-to-go NodeJs applications*, every Special-Type Extender has its default configuration. That means Appt can overcome some trivial steps on development process, such as writing `CORS`, defining `Body Parsers`, making `JWT middlewares`, configuring `Routers` etc, by simply providing built-in default configuration and, of course, letting you overwrite them.
+
+### Plugins
+Plugins are, essentially, uncoupled wrappers developed to work with third party packages to work specifically into the Appt's ecosystem. Although you might not need them, you will notice they can decrease your development effort an give you an elegant approach.
 
 
 ## Compatibility
