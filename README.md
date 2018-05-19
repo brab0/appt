@@ -34,15 +34,6 @@ Plugins are, essentially, uncoupled wrappers developed to work with third party 
 
 ## Packages
 To guarantee you're gonna use (*and load*) only what you want/need, Appt is fully modularized and uncoupled by scoped packages.
-
-### @appt/legacy
-There was an first implementation of Appt. It still has some value and it's really straightforward. It has an scheme/configuration approach. If you feel curious about it, maybe it's worth to check it out. 
-
-#### Install
-    $ npm install @appt/legacy --save
-
-**Read the docs:** https://github.com/brab0/appt/tree/master/legacy
-
  
 ### @appt/core
 The Appt's ecosystem package. It's responsible for give the DI approach.
@@ -69,6 +60,15 @@ A wrapper to put [mongoose](https://www.npmjs.com/package/mongoose) inside the A
     $ npm install @appt/mongoose --save
 
 **Read the docs:** https://github.com/brab0/appt/tree/master/plugins/mongoose
+
+
+### @appt/legacy
+There was a first implementation of Appt concept. It's not maintained anymore, but it's stable and has this value on a non-class-orientation approach. If you feel curious about it, maybe it's worth to check it out. 
+
+#### Install
+    $ npm install @appt/legacy --save
+
+**Read the docs:** https://github.com/brab0/appt/tree/master/legacy
 
 
 ## Compatibility
