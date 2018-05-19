@@ -33,6 +33,16 @@ import {
 	TDatabase
 } from '@appt/core';
 ```
+### ApptBootstrap
+This is a class which can be used to things related to the application bootstrap. For now, the only method exported is `module()`, which of course, is responsible only for import the application's main module.
+```javascript
+import { ApptModule, ApptBootstrap } from '@appt/core';
+
+@ApptModule()
+export class AppMain(){}
+
+ApptBootstrap.module('AppMain');
+```
 
 ### @ApptModule
 It is a class decorator responsible for *call other modules and glue components together*, creating the whole application's tree. 
@@ -44,8 +54,8 @@ An `@ApptModule` has the following syntax and options:
 import { ApptModule } from '@appt/core';
 
 @ApptModule({
-	import: ['ControllersModule', 'HelpersModule'],
-	declare: ['AppDatabase']
+	import: ['RoutersModule', 'ControllersModule'],
+	declare: ['DatabaseComponent', 'HelpersComponent']
 })
 export class AppMain(){}
 ```
@@ -66,24 +76,27 @@ import { Mongoose } from '@appt/mongoose';
 		type: TDatabase,
 		use: [Mongoose],
 		config: {
-			uri: ''
+			uri: 'mongodb://localhost:27017/appt-demo',
+			options: {}
 		}
 	},
-	inject: ['DatabaseHelper']
+	inject: ['HelpersComponent']
 })
 export class AppDatabase(){
-	constructor(helper){
-		helper.consoleDatabaseConnected();
+	constructor(helpers){
+		helpers.showDatabaseLog();
 	}
 }
 ```
-The example above, shows the class (`AppMain`) handled by our module decorator, which **imports** others modules and **declares** your components. It is important to notice that: 
- - The `import` option is only used to call other **modules**;
- - The `declare` option is designed to assemble (and call) only **components**;
+There are few thing here: 
+ - `@ApptComponent` is also a class decorator.
+ - For a didactic explanation, the example above expose all the options an `@ApptComponent` can have. Which means, to put a class into Appt's ecosystem, a simple `@ApptComponent()` is needed;
+ - We're using the `@appt/mongoose` plugin. It is a driver of MongoDB using Mongoose ODM ([docs here](https://github.com/brab0/appt/tree/master/plugins/mongoose)). 
+ - These type of decorator can only **inject** other components and these injection are passed through the class constructor, such as seen above with the `HelpersComponent` class which will print a log of our database connection (at this example);
+ - An `@ApptComponent` can get a meaning, a special behaviour passed through a Special-Type Extender (*TDatabase, in this case*).
 
-### `ApptBootstrap`
-
-### `TDatabase`
+### TDatabase
+It is the only Special-Type Extender of the package. It is only an implementation of a generic database connector that is ready/needs to couple (*use*) a 'driver' to execute what kind of database we are going to work with.
 
 
 ## Hands On
