@@ -24,9 +24,62 @@ This package is the main dependency of the framework. With it, you can start you
 
  
 ## Resources
-### `@ApptModule`
+The `@appt/core` export some resources which can be imported as seen below:
+```javascript
+import {
+	ApptModule,
+	ApptComponent,
+	ApptBootstrap,
+	TDatabase
+} from '@appt/core';
+```
 
-### `@ApptComponent`
+### @ApptModule
+It is a class decorator responsible for *call other modules and glue components together*, creating the whole application's tree. 
+
+Every NodeJs application has one starter point. Using Appt, every starter point is an @ApptModule and every group of components can be part of it.
+
+An `@ApptModule` has the following syntax and options:
+```javascript
+import { ApptModule } from '@appt/core';
+
+@ApptModule({
+	import: ['ControllersModule', 'HelpersModule'],
+	declare: ['AppDatabase']
+})
+export class AppMain(){}
+```
+The example above, shows the class (`AppMain`) handled by our module decorator, which **imports** others modules and **declares** your components. It is important to notice that: 
+ - The `import` option is only used to call other **modules**;
+ - The `declare` option is designed to assemble (and call) only **components**;
+
+### @ApptComponent
+It is a class decorator responsible for the *application's logic programming*. There is where you are going to put your code. For Appt, it does not really matters what your components are. Unless you modify a behaviour using a *Special-Type Extender*, it only cares if it's a piece of implementation which you want inject or use on/by somewhere else.
+
+An `@ApptComponent` has the following syntax and options:
+```javascript
+import { ApptComponent, TDatabase } from '@appt/core';
+import { Mongoose } from '@appt/mongoose';
+
+@ApptComponent({
+	extend: {
+		type: TDatabase,
+		use: [Mongoose],
+		config: {
+			uri: ''
+		}
+	},
+	inject: ['DatabaseHelper']
+})
+export class AppDatabase(){
+	constructor(helper){
+		helper.consoleDatabaseConnected();
+	}
+}
+```
+The example above, shows the class (`AppMain`) handled by our module decorator, which **imports** others modules and **declares** your components. It is important to notice that: 
+ - The `import` option is only used to call other **modules**;
+ - The `declare` option is designed to assemble (and call) only **components**;
 
 ### `ApptBootstrap`
 
