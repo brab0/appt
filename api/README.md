@@ -12,14 +12,23 @@ This document will introduce the `@appt/api` package. We assume you got here aft
 
     
 ## @appt/api
+This package brings and wraps to the Appt's ecosystem all the essential packages, middlewares and configurations to built a ready-to-go REST Api.
 
+
+## Third-Party
+We don't want re-invent the wheel! Thanks to these amazing packages out there we can go straight to the point. 
+There is some of those we're using at this project:
+- [`body-parser`](https://www.npmjs.com/package/body-parser) to handle the request parameters;
+- [express](https://www.npmjs.com/package/express) to run api's `Server`, `Routes`, `Statics`, `cross-domain(CORS)` and so on...
+- [express-jwt](https://www.npmjs.com/package/express-jwt) to handle the access control;  
+ 
  
 ## Resources
 The `@appt/api` plugin export some resources which can be imported as seen below:
 ```javascript
 import {
-	TRouter,
 	TServer,
+	TRouter,
 	api
 } from '@appt/api';
 
@@ -33,6 +42,51 @@ import {
 } from '@appt/api/router';
 ```
 
+### TServer
+```javascript
+import { ApptComponent } from '@appt/core';
+import { TServer } from '@appt/api';
+
+/*
+
+** These are the default configuration you can override. **
+
+const config = {
+	address: {
+		host : "http://localhost",
+		port : 3000
+	},
+	statics: [],
+	bodyParser: {
+		json: {
+			limit: '50mb',
+			type: 'application/json'
+		},
+		urlencoded: {
+			limit: '50mb',
+			extended: true
+		}
+	},
+	cors: [{
+		route: "/*",
+		header: {
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Headers": "Authorization, Content-Type, Origin, Accept, X-Requested-With, Origin, Cache-Control, X-File-Name",
+			"Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS, DELETE"
+		}
+	}]
+};
+*/
+
+@ApptComponent({
+	extend: {
+		type: TServer,
+		config: {}
+	}
+})
+export class ApiServer(){}
+```
+
 ### TRouter
 ```javascript
 import { ApptComponent } from '@appt/core';
@@ -40,15 +94,61 @@ import { TRouter } from '@appt/api';
 
 @ApptComponent({
 	extend: {
-		type: TDatabase,
-		use: [Mongoose],
+		type: TRouter,
+		use: ['PrivateRouter', 'PublicRouter'],
 		config: {
-			uri: 'mongodb://localhost:27017/appt-demo',
-			options: {}
+			path: '/api'
 		}
 	}
 })
 export class ApiRouter(){}
+```
+
+### api
+```javascript
+import { ApptComponent } from '@appt/core';
+import { api } from '@appt/api';
+
+@ApptComponent()
+export class SomeComponent(){
+	printExpressApiInstance(){	
+		console.log(this.instance);
+	}
+	
+	printExpress(){	
+		console.log(this.express);
+	}
+}
+```
+
+### Router Decorators
+```javascript
+import { TRouter } from '@appt/api';
+import { Get, Post } from '@appt/api/router';
+
+@ApptComponent({
+	extend: {
+		type: TRouter
+	}
+})
+export class PrivateRouter(){
+	constructor(){}
+	
+	@Get('/')
+	getAll(req, res, next){
+		res.status(200).send('Take everything!')
+	}
+
+	@Get('/:id')
+	getById(req, res, next){
+		res.status(200).send(`We're gonna search by: ${req.params.id}`)
+	}
+
+	@Post('/:id')
+	getById(req, res, next){
+		res.status(200).send(req.body)		
+	}
+}
 ```
 
 ## Compatibility
