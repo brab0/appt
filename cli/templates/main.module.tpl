@@ -4,6 +4,10 @@ import {
 } from '@appt/core';
 
 @ApptModule()
-export class <className> {}
+export class <className> {
+   constructor(){
+      console.log('Appt is up!')
+   }
+}
 
 ApptBootstrap.module('<className>');

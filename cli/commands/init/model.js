@@ -333,8 +333,12 @@ function addEssentials(project) {
       .then(chosen => {
             if(chosen.files && chosen.files.length > 0){
                   const spinner = ora('Adding files to the project...').start();
+                  let hasGitIgnore = false;
                   
-                  const files = chosen.files.map(file => config.paths.templates + file.split(' - ')[0].trim()).join(" ");
+                  const files = chosen.files.map(file => {
+                        if(file == '.gitignore') hasGitIgnore = true;
+                        else return config.paths.templates + file.split(' - ')[0].trim()
+                  }).join(" ");
 
                   return new Promise((resolve, reject) => {
                         require('child_process')
@@ -343,13 +347,25 @@ function addEssentials(project) {
                               }, (error, stdout, stderr) => {
                                     if (error) reject(`exec error: ${error}`);                              
                               
-                                    setTimeout(() => {
-                                          spinner.succeed('Extra files added!');
-            
-                                          resolve(project);
-                                    }, 1500);
+                                    resolve();
                               });
-                     });                  
+                        })
+                        .then(() => {
+                              if(hasGitIgnore){
+                                    return file.read(config.paths.templates + '/gitignore.tpl')
+                                          .then(moduleContent => file.write({
+                                                to: project + '/.gitignore',
+                                                content: moduleContent
+                                          }))
+                                          .then(() => {                                          
+                                                spinner.succeed('Extra files added!');
+                  
+                                                return project;
+                                          })
+                              } else {
+                                    return project;
+                              }
+                        });                  
             } else {
                   return project;
             }            
@@ -402,7 +418,18 @@ function addMainModules(mainModuleConfig){
                   to: mainModuleConfig.projectsPath + '/' + mainModuleConfig.src + mainModuleConfig.moduleFileName,
                   content: moduleContent
             }))
-            .then(() => {
+            .then(() => file.read(config.paths.templates + '/appt.json.tpl'))                  
+            .then(function(mainModule) {
+                  return mainModule
+                        .toString()
+                        .replace('<dist>', mainModuleConfig.dist)
+                        .replace('<src>', mainModuleConfig.src);
+            })
+            .then(moduleContent => file.write({
+                  to: mainModuleConfig.projectsPath + '/appt.json',
+                  content: moduleContent
+            }))
+            .then(moduleContent => {
                   spinner.succeed('Main module added!');
 
                   return mainModuleConfig.projectsPath;
