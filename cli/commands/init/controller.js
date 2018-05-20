@@ -10,6 +10,6 @@ module.exports.init = options => {
       .then(projectsPath => model.addEssentials(projectsPath))
       .then(projectsPath => model.getSeedProject(projectsPath))      
       .then(projectsPath => model.installDependencies(projectsPath))      
-      .then(() => console.log('Your project is ready!\n'))
+      .then(() => console.log('\nYour project is ready!\n'))
       .catch(ex => console.log(ex));
 }

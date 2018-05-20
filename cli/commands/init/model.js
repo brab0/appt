@@ -47,7 +47,7 @@ function checkProjectsRoot(projectsPath) {
                   reject(err.code);
                }
             } else {
-               console.log(chalk.yellow(`The path ${projectsPath.root} already has a package.json file.`));
+               console.log(chalk.yellow(`\nThe path ${projectsPath.root} already has a package.json file.`));
                console.log(chalk.yellow.bold(`If you decide to continue, the existent file will be overwritten.\n`));
 
                inquirer.prompt({
@@ -404,7 +404,7 @@ function addMainModules(mainModuleConfig){
             }))
             .then(() => {
                   spinner.succeed('Main module added!');
-                  
+
                   return mainModuleConfig.projectsPath;
             })
 }
