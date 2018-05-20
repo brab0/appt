@@ -79,6 +79,43 @@ function checkProjectsRoot(projectsPath) {
    })
 }
 
+function getPackageDependencies(package) {
+      return inquirer.prompt({
+            type: 'checkbox',
+            message: 'Choose which dependencies your project depends on:',
+            name: 'dependencies',
+            choices: [{
+                  name: '@appt/api'
+            }, {
+                  name: '@appt/mongoose'
+            }]
+      })
+      .then(chosen => {
+            const all = {
+                  "@appt/api": "^1.0.19",                  
+                  "@appt/mongoose": "^1.0.20"
+            };
+
+            const dependencies = Object.keys(all).reduce((prev, crr) => {
+                  const choice = chosen.dependencies.find(dep => dep === crr);
+                  return Object.assign(prev, { [choice]: all[choice] })
+            }, {
+                  "@appt/core": "^1.0.19"
+            });
+
+            return Object.assign(package, {
+                  "dependencies": dependencies,
+                  "devDependencies": {
+                        "babel-cli": "^6.26.0",
+                        "babel-preset-es2015": "^6.24.1",
+                        "rimraf": "^2.6.2",
+                        "babel-plugin-transform-decorators-legacy": "^1.3.4"
+                  }
+            });
+      });
+}
+
+
 function getGitInfo(projectsPath) {      
    return new Promise(resolve => {
       remoteOriginUrl(`${projectsPath}/.git/config`,
@@ -171,82 +208,112 @@ function setPackageJson(git) {
       message: 'license:',
       default: 'ISC'
    }]);
+               
+      return prompt.then(answers => Object.assign(
+            {
+                  name: answers.name,
+                  version: answers.version,
+                  description: answers.description,
+                  author: answers.author,
+                  main: "main.module.js",
+                  scripts: {
+                        build: "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./data/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+                        start: "npm run build && node dist/src/main.module.js"
+                  },
+                  keywords: answers.keywords,
+                  license: answers.license
+            }, 
+            git.info
+      ))
+      .then(package => getPackageDependencies(package))      
+      .then(package => {            
+            const packageStringified = JSON.stringify(package, null, 4);      
 
-   return prompt.then(answers => Object.assign({
-      name: answers.name,
-      version: answers.version,
-      description: answers.description,
-      author: answers.author,
-      main: "main.module.js",
-      scripts: {
-            build: "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./data/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-            start: "npm run build && node dist/src/main.module.js"
-      },
-      keywords: answers.keywords,
-      license: answers.license
-      }, 
-      git.info,
-      {            
-      dependencies: {
-            "@appt/api": "^1.0.19",
-            "@appt/core": "^1.0.19",
-            "@appt/mongoose": "^1.0.20"
-      },
-      devDependencies: {
-            "babel-cli": "^6.26.0",
-            "babel-preset-es2015": "^6.24.1",
-            "rimraf": "^2.6.2",
-            "babel-plugin-transform-decorators-legacy": "^1.3.4"
-      }
-   }))
-   .then(package => {
-      const packageStringified = JSON.stringify(package, null, 4);      
+            console.log(`\nAbout to write to: ${git.projectsPath}`)
+            console.log(packageStringified)
 
-      console.log(`\nAbout to write to: ${git.projectsPath}`)
-      console.log(packageStringified)
+            return inquirer.prompt({
+                  type: 'confirm',
+                  name: 'create',
+                  message: 'Is this ok?',
+                  default: true
+            })
+            .then(answer => Object.assign(answer, { packageStringified: packageStringified }));
+      })
+      .then(res => {
+            if (res.create) {
+                  console.log("");
+                  const spinner = ora('Creating package.json file...').start();
+
+                  return file.write({
+                        to: git.projectsPath + '/package.json',
+                        content: res.packageStringified
+                  })
+                  .then(() => {
+                        return {
+                        spinner: spinner,
+                        package: JSON.parse(res.packageStringified)
+                        }
+                  });
+            } else {
+                  console.log("Aborted!");
+                  process.exit(0);
+            }
+      })   
+      .then(res => {
+            return new Promise(resolve => {
+                  setTimeout(function () {
+                        res.spinner.succeed("package.json created!");
+
+                        resolve(git.projectsPath);
+                  }, 1500);
+            });
+      })
+      .catch(ex => {
+            console.log();
+            throw new Error(ex);
+      });
+}
+
+function addEssentials(project) {
+      console.log();
 
       return inquirer.prompt({
-         type: 'confirm',
-         name: 'create',
-         message: 'Is this ok?',
-         default: true
+            type: 'checkbox',
+            message: 'Choose some extra files, if you want:',
+            name: 'files',
+            choices: [{
+                  name: '.gitignore'
+            }, {
+                  name: 'README.md'
+            }, {
+                  name: 'docker-compose.yml - MongoDB container'
+            }]
       })
-      .then(answer => Object.assign(answer, { packageStringified: packageStringified }));
-   })   
-   .then(res => {
-      if (res.create) {
-         console.log("");
-         const spinner = ora('Creating package.json file...').start();
+      .then(chosen => {
+            if(chosen.files && chosen.files.length > 0){
+                  const spinner = ora('Adding files to the project...').start();
+                  
+                  const files = chosen.files.map(file => config.paths.templates + file.split(' - ')[0].trim()).join(" ");
 
-         return file.write({
-            to: git.projectsPath + '/package.json',
-            content: res.packageStringified
-         })
-         .then(() => {
-            return {
-               spinner: spinner,
-               package: JSON.parse(res.packageStringified)
-            }
-         });
-
-      } else {
-         console.log("Aborted!");
-         process.exit(0);
-      }
-   })   
-   .then(res => {
-      return new Promise(resolve => {
-         setTimeout(function () {
-            res.spinner.succeed("package.json created!");
-
-            resolve(git.projectsPath);
-         }, 1500);
+                  return new Promise((resolve, reject) => {
+                        require('child_process')
+                              .exec(`cp ${files} .`, {
+                                    cwd: project
+                              }, (error, stdout, stderr) => {
+                                    if (error) reject(`exec error: ${error}`);                              
+                              
+                                    setTimeout(() => {
+                                          spinner.succeed('Extra files added!');
+            
+                                          resolve(project);
+                                    }, 1500);
+                              });
+                     });                  
+            } else {
+                  return project;
+            }            
       });
-   })
-   .catch(ex => {
-      console.log()
-      throw new Error(ex);
-   });
 }
 
 function getSeedProject(project) {
@@ -275,7 +342,7 @@ function installDependencies(projectsPath) {
 
          spinner.succeed('Dependencies Installed!');
          
-         process.stdout.write("\n" + stdout + "\n")
+      //    process.stdout.write("\n" + stdout + "\n")
          
          resolve();
       });
@@ -288,5 +355,6 @@ module.exports = {
    getSeedProject: getSeedProject,
    installDependencies: installDependencies,
    checkProjectsRoot: checkProjectsRoot,
-   setProjectsRoot: setProjectsRoot
+   setProjectsRoot: setProjectsRoot,
+   addEssentials: addEssentials
 }
