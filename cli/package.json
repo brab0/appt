@@ -1,5 +1,5 @@
 {
-  "name": "appt-cli",
+  "name": "@appt/cli",
   "version": "0.0.1",
   "description": "",
   "main": "./bin/appt.js",
