@@ -1,0 +1,35 @@
+{
+  "name": "appt-cli",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./bin/appt.js",
+  "scripts": {
+    "start": "node ./bin/appt.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brab0/appt-cli.git"
+  },
+  "author": "brab0 <brabo.rodrigo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brab0/appt-cli/issues"
+  },
+  "homepage": "https://github.com/brab0/appt-cli#readme",
+  "dependencies": {
+    "download-git-repo": "^1.0.2",
+    "remote-origin-url": "^1.0.0",
+    "schemium-api": "0.0.6"
+  },
+  "bin": {
+    "appt": "./bin/appt.js"
+  },
+  "schemium": {
+    "path": {
+      "schemas": "**/commands/**/schema.js",
+      "models": "**/commands/**/model.js",
+      "controllers": "**/commands/**/controller.js"
+    }
+  }
+}
