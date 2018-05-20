@@ -177,54 +177,93 @@ function getGitInfo(projectsPath) {
 }
 
 function setPackageJson(git) {      
-   const prompt = inquirer.prompt([{
-      type: 'input',
-      name: 'name',
-      message: 'name:',
-      default: git.projectsPath.split('/').pop()
-   }, {
-      type: 'input',
-      name: 'version',
-      message: 'version:',
-      default: "0.0.1"
-   }, {
-      type: 'input',
-      name: 'description',
-      message: 'description:'
-   }, {
-      type: 'input',
-      name: 'keywords',
-      message: 'keywords:',
-      filter: function (asw) {
-         return asw.split(' ')
-      }
-   }, {
-      type: 'input',
-      name: 'author',
-      message: 'author:'
-   }, {
-      type: 'input',
-      name: 'license',
-      message: 'license:',
-      default: 'ISC'
-   }]);
-               
-      return prompt.then(answers => Object.assign(
-            {
+      const prompt = inquirer.prompt([{
+            type: 'input',
+            name: 'name',
+            message: 'project\'s name:',
+            default: git.projectsPath.split('/').pop()
+      }, {
+            type: 'input',
+            name: 'mainFileName',
+            message: 'main file name:',
+            default: 'main.module.js',
+            filter: function (asw) {
+                  return asw.replace('.js', '') + '.js';
+            }
+      }, {
+            type: 'input',
+            name: 'mainClassName',
+            message: 'main class name:',
+            default: 'MainModule'
+      }, {
+            type: 'input',
+            name: 'src',
+            message: 'source path:',
+            default: 'src/',
+            filter: function (asw) {
+                  return asw.replace('/', '') + '/';
+            }
+      }, {
+            type: 'input',
+            name: 'dist',
+            message: 'dist path:',
+            default: 'dist/',
+            filter: function (asw) {
+                  return asw.replace('/', '') + '/';
+            }
+      }, {
+            type: 'input',
+            name: 'version',
+            message: 'version:',
+            default: "0.0.1"
+      }, {
+            type: 'input',
+            name: 'description',
+            message: 'description:'
+      }, {
+            type: 'input',
+            name: 'keywords',
+            message: 'keywords:',
+            filter: function (asw) {
+                  return asw.split(' ')
+            }
+      }, {
+            type: 'input',
+            name: 'author',
+            message: 'author:'
+      }, {
+            type: 'input',
+            name: 'license',
+            message: 'license:',
+            default: 'ISC'
+      }]);
+      
+      var mainModuleConfig = {};
+
+      return prompt.then(answers => {
+            mainModuleConfig = {
+                  projectsPath: git.projectsPath,
+                  moduleFileName: answers.mainFileName,
+                  moduleClassName: answers.mainClassName,
+                  dist: answers.dist,
+                  src: answers.src
+            }
+
+            return Object.assign({
                   name: answers.name,
                   version: answers.version,
                   description: answers.description,
                   author: answers.author,
-                  main: "main.module.js",
+                  main: answers.dist + answers.src + answers.mainFileName,
                   scripts: {
-                        build: "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./data/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-                        start: "npm run build && node dist/src/main.module.js"
+                        build: "rimraf " + answers.dist + " && babel ./ --out-dir " + answers.dist + " --ignore ./data/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+                        start: "npm run build && node " + answers.dist + answers.src + answers.mainFileName
                   },
                   keywords: answers.keywords,
                   license: answers.license
             }, 
-            git.info
-      ))
+            git.info)
+      })
       .then(package => getPackageDependencies(package))      
       .then(package => {            
             const packageStringified = JSON.stringify(package, null, 4);      
@@ -248,11 +287,11 @@ function setPackageJson(git) {
                   return file.write({
                         to: git.projectsPath + '/package.json',
                         content: res.packageStringified
-                  })
+                  })                  
                   .then(() => {
                         return {
-                        spinner: spinner,
-                        package: JSON.parse(res.packageStringified)
+                              spinner: spinner,
+                              package: JSON.parse(res.packageStringified)
                         }
                   });
             } else {
@@ -269,6 +308,7 @@ function setPackageJson(git) {
                   }, 1500);
             });
       })
+      .then(projectsPath => addMainModules(mainModuleConfig))
       .catch(ex => {
             console.log();
             throw new Error(ex);
@@ -344,9 +384,29 @@ function installDependencies(projectsPath) {
          
       //    process.stdout.write("\n" + stdout + "\n")
          
-         resolve();
+         resolve(projectsPath);
       });
    });
+}
+
+function addMainModules(mainModuleConfig){      
+      const spinner = ora('Adding main module...').start();
+
+      return file.read(config.paths.templates + '/main.module.tpl')
+            .then(function(mainModule) {
+                  return mainModule
+                        .toString()
+                        .replace(new RegExp(/<className>/, 'g'), mainModuleConfig.moduleClassName);
+            })
+            .then(moduleContent => file.write({
+                  to: mainModuleConfig.projectsPath + '/' + mainModuleConfig.src + mainModuleConfig.moduleFileName,
+                  content: moduleContent
+            }))
+            .then(() => {
+                  spinner.succeed('Main module added!');
+                  
+                  return mainModuleConfig.projectsPath;
+            })
 }
 
 module.exports = {
@@ -356,5 +416,6 @@ module.exports = {
    installDependencies: installDependencies,
    checkProjectsRoot: checkProjectsRoot,
    setProjectsRoot: setProjectsRoot,
-   addEssentials: addEssentials
+   addEssentials: addEssentials,
+   addMainModules: addMainModules
 }
