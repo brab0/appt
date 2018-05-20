@@ -1,5 +1,6 @@
-**/dist
-**/data
+dist/
+data/
+demo/
 
 # Logs
 logs
