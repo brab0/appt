@@ -97,8 +97,8 @@ export class ApiServer(){
 
 ### TRouter
 Another *special-type extender*. Here, we are specifically handling the component to become an express *basepath router*.
-**We love express**, but one of the things we miss, it's the capability to segment their routes into many different components. Or even if you do that, its gonna cost a little bit of effort. 
-Since one of our main concerns is *to wrap the environment on a way you can have total control on what architecture you decide to take to your project*, these extender allows you to achieve that by assembling paths through its `use` param:
+**We love express**, but one of the things we miss, it's the capability of easily segment their routes into many different components.
+Since one of our main concerns is *allow you to have total control on what the architecture you decide to take to your project*, this extender make it possible by assembling child component paths through its `use` param:
 ```javascript
 import { ApptComponent } from '@appt/core';
 import { TRouter } from '@appt/api';
@@ -113,10 +113,47 @@ import { TRouter } from '@appt/api';
 	}
 })
 export class ApiRouter(){}
+
+@ApptComponent({
+	extend: {
+		type: TRouter,
+		config: {
+			path: '/public'
+		}
+	}
+})
+export class PublicRouter(){}
+
+@ApptComponent({
+	extend: {
+		type: TRouter,
+		config: {
+			path: '/private',
+			auth: {
+				secret: '231edfrw21g34',
+				igore: ['favicon.ico', /\/back-/\/]
+			}
+		}
+	}
+})
+export class PrivateRouter(){}
+
 ```
-What's happening above is: when the component `use: ['PrivateRouter', 'PublicRouter']`, Appt  is going to look if such components (*PrivateRouter && PublicRouter)* are TRouters. If so, they're gonna assemble their `paths` and form a basepath until Appt find a **Router Decorator** or until there's no more components to `use`.
+The `use: ['PrivateRouter', 'PublicRouter']` will tell Appt to look if such components are TRouters. If so, they're gonna assemble their `paths` and form a basepath. For those who have experienced express, internally the result of the example above will be something like:
+```javascript
+import express from  'express';
+
+const { Router } = express;
+
+const app = express();
+const router = Router();
+    
+app.use('/api/public', router);
+app.use('/api/private', router);
+```
 
 ### Router Decorators
+
 ```javascript
 import { TRouter } from '@appt/api';
 import { Get, Post } from '@appt/api/router';
