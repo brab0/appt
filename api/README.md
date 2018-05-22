@@ -141,7 +141,7 @@ export class PublicRouter(){}
 			path: '/private',
 			auth: {
 				secret: '231edfrw21g34',
-				igore: ['favicon.ico', /\/back-/\/]
+				ignore: ['favicon.ico', /\/back-/\/]
 			}
 		}
 	}
@@ -149,10 +149,9 @@ export class PublicRouter(){}
 export class PrivateRouter(){}
 
 ```
-The `use: ['PrivateRouter', 'PublicRouter']` will tell Appt to look if such components are TRouters. If so, they're gonna assemble their `paths` and form a basepath. For those who have experienced express, internally the result of the example above will be something like:
+A few things are going on here. The `use: ['PrivateRouter', 'PublicRouter']` will tell Appt to look if such components are TRouters. If so, they're gonna assemble their `paths` and form a basepath. For those who have experienced express, internally the result of the example above will be something like:
 ```javascript
 import express from  'express';
-
 const { Router } = express;
 
 const app = express();
@@ -161,7 +160,19 @@ const router = Router();
 app.use('/api/public', router);
 app.use('/api/private', router);
 ```
-
+Another thing to pay attention is the `auth` property:
+```javascript
+...
+config: {
+	path: '/private',
+	auth: {
+		secret: '231edfrw21g34',
+		ignore: ['favicon.ico', /\/back-/\/]
+	}
+}
+...
+```
+We are using `express-jwt` to control our route access. So, if you want to protect some path, just define the secret used to get into the route and, if you want some exception rule to ignore. 
 ### Router Methods
 Appt's router methods are essentially **express router methods with sugar**. So first, we export every method express also does on a Capitalized pattern. Second, makes sense for us to maintain an semantic and coherent pattern, since many things here are using decorator and annotation syntax. Lets improve the *PrivateRouter* component a little: 
 ```javascript
@@ -177,7 +188,7 @@ import { Get, Post } from '@appt/api/router';
 			path: '/private',
 			auth: {
 				secret: '231edfrw21g34',
-				igore: ['favicon.ico', /\/back-/\/]
+				ignore: ['favicon.ico', /\/back-/\/]
 			}
 		}
 	},
