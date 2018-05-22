@@ -28,7 +28,7 @@ To guarantee you're gonna use (*and load*) only what you want/need, Appt is full
 The Appt's cli for seeds Appt projects generation (for now)
 
 #### Install
-    $ npm install -g @appt/cli --save
+    $ npm install -g @appt/cli
 
 **Read the docs:** https://github.com/brab0/appt/tree/master/cli
  
