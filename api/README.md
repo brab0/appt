@@ -172,7 +172,7 @@ config: {
 }
 ...
 ```
-We are using `express-jwt` to control our route access. So, if you want to protect some path, just define the secret used to get into the route and, if you want some exception rule to ignore. 
+We are using `express-jwt` to control our router access. So, if you want to protect some path, just define the JWT secret to decrypt the *Bearer Authorization token* passed on the request header and, if you want some exception rule to ignore a path, just use the respective property. 
 ### Router Methods
 Appt's router methods are essentially **express router methods with sugar**. So first, we export every method express also does on a Capitalized pattern. Second, makes sense for us to maintain an semantic and coherent pattern, since many things here are using decorator and annotation syntax. Lets improve the *PrivateRouter* component a little: 
 ```javascript
