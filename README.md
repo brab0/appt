@@ -23,6 +23,14 @@ If some of those scenarios looks familiar and bother you, **you should definitel
 
 ## Packages
 To guarantee you're gonna use (*and load*) only what you want/need, Appt is fully modularized and uncoupled by scoped packages.
+
+### @appt/cli
+The Appt's cli for seeds Appt projects generation (for now)
+
+#### Install
+    $ npm install -g @appt/cli --save
+
+**Read the docs:** https://github.com/brab0/appt/tree/master/cli
  
 ### @appt/core
 The Appt's ecosystem package. It's responsible for give the DI approach.
