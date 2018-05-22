@@ -100,6 +100,8 @@ Another *special-type extender*. Here, we are specifically handling the componen
 **We love express**, but one of the things we miss, it's the capability of easily segment their routes into many different components.
 Since one of our main concerns is *allow you to have total control on what the architecture you decide to take to your project*, this extender make it possible by assembling child component paths through its `use` param:
 ```javascript
+/* api.router.js */
+
 import { ApptComponent } from '@appt/core';
 import { TRouter } from '@appt/api';
 
@@ -113,6 +115,12 @@ import { TRouter } from '@appt/api';
 	}
 })
 export class ApiRouter(){}
+```
+```javascript
+/* public.router.js */
+
+import { ApptComponent } from '@appt/core';
+import { TRouter } from '@appt/api';
 
 @ApptComponent({
 	extend: {
@@ -123,7 +131,9 @@ export class ApiRouter(){}
 	}
 })
 export class PublicRouter(){}
-
+```
+```javascript
+/* private.router.js */
 @ApptComponent({
 	extend: {
 		type: TRouter,
@@ -153,8 +163,10 @@ app.use('/api/private', router);
 ```
 
 ### Router Methods
-Appt's router methods are essentially **express router methods with sugar**. So first, we export every method express also does on a Capitalized pattern. Second, makes sense for us to maintain an semantic and coherent pattern, since many things here are using decorator and annotation syntax. Lets extend the PrivateRouter a little: 
+Appt's router methods are essentially **express router methods with sugar**. So first, we export every method express also does on a Capitalized pattern. Second, makes sense for us to maintain an semantic and coherent pattern, since many things here are using decorator and annotation syntax. Lets improve the *PrivateRouter* component a little: 
 ```javascript
+/* private.router.js */
+
 import { TRouter } from '@appt/api';
 import { Get, Post } from '@appt/api/router';
 
@@ -192,7 +204,7 @@ export class PrivateRouter(){
 	}
 }
 ```
-Pretty much express in sugar syntax, right? 
+Pretty much express in a sugar syntax, right? 
 
 ### api
 This is an exportation of express *as-it-is*. You might want decide to do something with it and, **why not?** From it, you can access an express instance, which Appt is using or even the 'class' to handle whatever you want.
