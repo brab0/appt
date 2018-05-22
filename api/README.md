@@ -152,19 +152,29 @@ app.use('/api/public', router);
 app.use('/api/private', router);
 ```
 
-### Router Decorators
-
+### Router Methods
+Appt's router methods are essentially **express router methods with sugar**. So first, we export every method express also does on a Capitalized pattern. Second, makes sense for us to maintain an semantic and coherent pattern, since many things here are using decorator and annotation syntax. Lets extend the PrivateRouter a little: 
 ```javascript
 import { TRouter } from '@appt/api';
 import { Get, Post } from '@appt/api/router';
 
 @ApptComponent({
 	extend: {
-		type: TRouter
-	}
+		type: TRouter,
+		config: {
+			path: '/private',
+			auth: {
+				secret: '231edfrw21g34',
+				igore: ['favicon.ico', /\/back-/\/]
+			}
+		}
+	},
+	inject: ['MiddlewaresComponent']
 })
 export class PrivateRouter(){
-	constructor(){}
+	constructor(myMiddleware){
+		this.middleware = myMiddleware;
+	}
 	
 	@Get('/')
 	getAll(req, res, next){
@@ -176,12 +186,13 @@ export class PrivateRouter(){
 		res.status(200).send(`We're gonna search by: ${req.params.id}`)
 	}
 
-	@Post('/:id')
+	@Post('/:id', this.middleware.doSomethingFirst)
 	getById(req, res, next){
 		res.status(200).send(req.body)		
 	}
 }
 ```
+Pretty much express in sugar syntax, right? 
 
 ### api
 This is an exportation of express *as-it-is*. You might want decide to do something with it and, **why not?** From it, you can access an express instance, which Appt is using or even the 'class' to handle whatever you want.
