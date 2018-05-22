@@ -5,7 +5,7 @@ A lightweight *exo-framework* for *ready-to-go* **NodeJs** applications.
 
 
 ## What?!
-It's interesting how the idea of framework remains the same since 90's. Even with all the *packages manager running*, essentially most of them still use cannonballs to kill flies, bringing a lot of stuff we don't need, putting all together, demanding a big learn curve and re-inventing the wheel. Once said that...
+It's interesting how the idea of framework remains the same since 90's. Even with all the *packages manager running*, essentially most of them still use cannonballs to kill flies, bringing a lot of stuff we don't need, putting all together, demanding a big learning curve and re-inventing the wheel. Once said that...
 
 > "how do we create a framework unnecessarily heavy, semantically intuitive, which can overcome recurrent steps on building process applications, without being too imperative, focusing on fast and scalable development?"
 
