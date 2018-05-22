@@ -1,4 +1,5 @@
 
+
 # Appt
 A lightweight *exo-framework* for *ready-to-go* **NodeJs** applications.
 
@@ -24,7 +25,7 @@ There is some of those we're using at this project:
  
  
 ## Resources
-The `@appt/api` plugin export some resources which can be imported as seen below:
+The `@appt/api` exports some resources which can be imported as seen below:
 ```javascript
 import {
 	TServer,
@@ -43,20 +44,23 @@ import {
 ```
 
 ### TServer
+This is a *special-type extender* we can use to transform a component into an **express server**. There are many default configurations (as you can see at the example below) which, without them, you probably could not do much. That brings us one of the Appt's main goals: *allow you to start a project with minimum effort*. Of course you can override each one of them.
+
 ```javascript
 import { ApptComponent } from '@appt/core';
 import { TServer } from '@appt/api';
 
-/*
 
-** These are the default configuration you can override. **
-
+/* These are the default configuration you can override */
 const config = {
 	address: {
 		host : "http://localhost",
 		port : 3000
 	},
-	statics: [],
+	statics: [{
+		route: '/',
+		path: '/'
+	}],
 	bodyParser: {
 		json: {
 			limit: '50mb',
@@ -76,18 +80,25 @@ const config = {
 		}
 	}]
 };
-*/
 
 @ApptComponent({
 	extend: {
 		type: TServer,
-		config: {}
+		config: config
 	}
 })
-export class ApiServer(){}
+export class ApiServer(){
+	constructor(config){
+		// the especial-type externder TServer inject all the server configurations
+		console.log(`Server running at ${config.address.host}:${config.address.port}`)
+	}
+}
 ```
 
 ### TRouter
+Another *special-type extender*. Here, we are specifically handling the component to become an express *basepath router*.
+**We love express**, but one of the things we miss, it's the capability to segment their routes into many different components. Or even if you do that, its gonna cost a little bit of effort. 
+Since one of our main concerns is *to wrap the environment on a way you can have total control on what architecture you decide to take to your project*, these extender allows you to achieve that by assembling paths through its `use` param:
 ```javascript
 import { ApptComponent } from '@appt/core';
 import { TRouter } from '@appt/api';
@@ -103,23 +114,7 @@ import { TRouter } from '@appt/api';
 })
 export class ApiRouter(){}
 ```
-
-### api
-```javascript
-import { ApptComponent } from '@appt/core';
-import { api } from '@appt/api';
-
-@ApptComponent()
-export class SomeComponent(){
-	printExpressApiInstance(){	
-		console.log(this.instance);
-	}
-	
-	printExpress(){	
-		console.log(this.express);
-	}
-}
-```
+What's happening above is: when the component `use: ['PrivateRouter', 'PublicRouter']`, Appt  is going to look if such components (*PrivateRouter && PublicRouter)* are TRouters. If so, they're gonna assemble their `paths` and form a basepath until Appt find a **Router Decorator** or until there's no more components to `use`.
 
 ### Router Decorators
 ```javascript
@@ -147,6 +142,24 @@ export class PrivateRouter(){
 	@Post('/:id')
 	getById(req, res, next){
 		res.status(200).send(req.body)		
+	}
+}
+```
+
+### api
+This is an exportation of express *as-it-is*. You might want decide to do something with it and, **why not?** From it, you can access an express instance, which Appt is using or even the 'class' to handle whatever you want.
+```javascript
+import { ApptComponent } from '@appt/core';
+import { api } from '@appt/api';
+
+@ApptComponent()
+export class SomeComponent(){
+	printExpressApiInstance(){	
+		console.log(this.instance);
+	}
+	
+	printExpress(){	
+		console.log(this.express);
 	}
 }
 ```
