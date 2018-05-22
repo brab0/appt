@@ -25,7 +25,7 @@ If some of those scenarios looks familiar and bother you, **you should definitel
 To guarantee you're gonna use (*and load*) only what you want/need, Appt is fully modularized and uncoupled by scoped packages.
 
 ### @appt/cli
-The Appt's cli for seeds Appt projects generation (for now)
+A simple cli for Appt projects seed generation (until now)
 
 #### Install
     $ npm install -g @appt/cli
