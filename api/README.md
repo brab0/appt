@@ -1,19 +1,13 @@
 
 
-# Appt
-A lightweight *exo-framework* for *ready-to-go* **NodeJs** applications.
 
-
-## What?!
-This document will introduce the `@appt/api` package. We assume you got here after seeing the [Appt's Main](https://github.com/brab0/appt) page. If you don't, **we strongly recommend** you to step back an take a 5 minutes reading to get used with some concepts we're going to apply here.
+# @appt/api
+This package brings and wraps to the Appt's ecosystem all the essential packages, middlewares and configurations to built a ready-to-go REST Api. 
+We assume you got here after seeing the [Appt's Main Page](https://github.com/brab0/appt) . If you don't, **we strongly recommend** you to step back an take a 5 minutes reading to get used with some key concepts we're going to apply here.
 
 
 ## Install
     $ npm install @appt/api --save
-
-    
-## @appt/api
-This package brings and wraps to the Appt's ecosystem all the essential packages, middlewares and configurations to built a ready-to-go REST Api.
 
 
 ## Third-Party
