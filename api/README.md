@@ -1,6 +1,3 @@
-
-
-
 # @appt/api
 This package brings and wraps to the Appt's ecosystem all the essential packages, middlewares and configurations to built a ready-to-go REST Api. 
 We assume you got here after seeing the [Appt's Main Page](https://github.com/brab0/appt) . If you don't, **we strongly recommend** you to step back an take a 5 minutes reading to get used with some key concepts we're going to apply here.
@@ -81,7 +78,7 @@ const config = {
 		config: config
 	}
 })
-export class ApiServer(){
+export class ApiServer{
 	constructor(config){
 		// the especial-type externder TServer inject all the server configurations
 		console.log(`Server running at ${config.address.host}:${config.address.port}`)
@@ -108,7 +105,7 @@ import { TRouter } from '@appt/api';
 		}
 	}
 })
-export class ApiRouter(){}
+export class ApiRouter{}
 ```
 ```javascript
 /* public.router.js */
@@ -124,7 +121,7 @@ import { TRouter } from '@appt/api';
 		}
 	}
 })
-export class PublicRouter(){}
+export class PublicRouter{}
 ```
 ```javascript
 /* private.router.js */
@@ -140,7 +137,7 @@ export class PublicRouter(){}
 		}
 	}
 })
-export class PrivateRouter(){}
+export class PrivateRouter{}
 
 ```
 A few things are going on here. The `use: ['PrivateRouter', 'PublicRouter']` will tell Appt to look if such components are TRouters. If so, they're gonna assemble their `paths` and form a basepath. For those who have experienced express, internally the result of the example above will be something like:
@@ -188,7 +185,7 @@ import { Get, Post } from '@appt/api/router';
 	},
 	inject: ['MiddlewaresComponent']
 })
-export class PrivateRouter(){
+export class PrivateRouter{
 	constructor(myMiddleware){
 		this.middleware = myMiddleware;
 	}
@@ -218,7 +215,7 @@ import { ApptComponent } from '@appt/core';
 import { api } from '@appt/api';
 
 @ApptComponent()
-export class SomeComponent(){
+export class SomeComponent{
 	printExpressApiInstance(){	
 		console.log(this.instance);
 	}
